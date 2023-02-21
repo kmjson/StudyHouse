@@ -37,6 +37,12 @@ You can preview the production build with `npm run preview`.
 
 > To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
 
-## Deployed Site
+## Deploy
+
+To deploy your application:
+
+```bash
+firebase deploy
+```
 
 https://studyhouse-74491.web.app/
