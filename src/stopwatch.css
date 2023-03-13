@@ -1,0 +1,62 @@
+.stopwatch{
+    height: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #7D2Ae8;
+}
+
+.wrapper{
+    user-select:none;
+}
+
+.wrapper .time{
+    height: 100px;
+    background: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 6px;
+    box-shadow: 10px 10px 20px rgba(0,0,0,0.99);
+    padding: 0 10px;
+}
+
+.wrapper .time span{
+    width: 100px;
+    text-align:center;
+    font-size: 50px;
+    font-weight: 500;
+    color: #333;
+}
+.time span.colon{
+    width: 10px;
+}
+.time span.ms-colon,
+.time span.millisecond{
+    color: #7D2Ae8;
+}
+
+.wrapper .buttons{
+    text-align: center;
+    margin-top: 20px;
+}
+.buttons button{
+    padding: 6px 16px;
+    outline: none;
+    border: none;
+    margin: 0 5px;
+    color: #7D2Ae8;
+    background: #fff;
+    font-size: 19px;
+    font-weight: 500;
+    border-radius: 4px;
+    cursor: pointer;
+    box-shadow: 10px 10px 20px rgba(0,0,0,0.99);
+}
+
+.buttons button.active,
+.buttons button.stopActive{
+    cursor: not-allowed;
+    opacity: 0.8;
+
+}
