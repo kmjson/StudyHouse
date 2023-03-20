@@ -1,5 +1,7 @@
 import { initializeApp } from "firebase/app";
 import { getAuth, signInWithPopup, GoogleAuthProvider, signOut } from "firebase/auth";
+import { getFirestore, collection,  query, where, doc, setDoc, getDocs } from "firebase/firestore";
+import { get } from 'svelte/store';
 import AuthStore from "./AuthStore";
 
 var firebaseConfig = {
@@ -14,6 +16,7 @@ var firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
+const db = getFirestore(app);
 
 async function loginWithGoogle() {
     try {
@@ -44,7 +47,53 @@ async function logoutFromGoogle() {
     }
 }
 
+/**
+ * @param {any} activity
+ * @param {any} date
+ * @param {any} length
+ */
+async function addActivity(activity, date, length) {
+    try {
+        const uid = get(AuthStore).user?.uid;
+        const newActivityRef = doc(collection(db, "activities"));
+        await setDoc(newActivityRef, {
+            "uid": uid,
+            "activity": activity,
+            "date": date,
+            "length": length
+        });
+    }
+    catch (e) {
+        console.log(e);
+    }
+}
+
+async function getActivities() {
+    try {
+        const uid = get(AuthStore).user?.uid;
+        const q = query(collection(db, "activities"), where("uid", "==", uid));
+        const querySnapshot = await getDocs(q);
+        /**
+         * @type {{ activity: any; date: any; length: any; }[]}
+         */
+        let ret = [];
+        querySnapshot.forEach((doc) => {
+            ret.push({
+                "activity": doc.data().activity,
+                "date": doc.data().date,
+                "length": doc.data().length
+            });
+        });
+        return ret;
+    }
+    catch (e) {
+        console.log(e);
+    }
+}
+
 export {
     loginWithGoogle,
-    logoutFromGoogle
+    logoutFromGoogle,
+    addActivity,
+    getActivities
 }

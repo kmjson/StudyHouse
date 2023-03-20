@@ -1,59 +1,49 @@
 <script>
-	import { logoutFromGoogle } from '../Firebase';
-	import { onDestroy } from 'svelte';
-    import P5 from 'p5-svelte';
+    import SessionStore from '../SessionStore';
+    import InSession from './components/InSession.svelte';
+    import StartSession from './components/StartSession.svelte';
+    import ActivitiesModal from './components/ActivitiesModal.svelte';
+    import { logoutFromGoogle } from '../Firebase';
+    import { writable } from 'svelte/store';
+    import Modal from 'svelte-simple-modal';
 
-	let inSession = false;
-	let startTime = 0;
-	let elapsedTime = '';
+    const modal = writable(null);
 
-	onDestroy(() => {
-		endSession();
-	});
+    const startSessionModal = () => {
+        SessionStore.set({
+            inSession: false,
+            modalOpen: true,
+            sessionActivity: ""
+        });
+        // @ts-ignore
+        modal.set(StartSession);
+    };
 
-	const startSession = () => {
-		inSession = true;
-		const date = new Date();
-		startTime = date.getTime();
-        localStorage.setItem('inSession', 'true');
-	};
+    const seeActivitiesModal = () => {
+        SessionStore.set({
+            inSession: false,
+            modalOpen: true,
+            sessionActivity: ""
+        });
+        // @ts-ignore
+        modal.set(ActivitiesModal);
+    };
 
-	const endSession = () => {
-		inSession = false;
-        const date = new Date();
-		let endTime = date.getTime();
-        // For later use
-        let totalDuration = endTime - startTime;
-        localStorage.setItem('inSession', 'false');
-	};
-
-    // @ts-ignore
-    const sketch = (p5) => {
-		p5.setup = () => {};
-		p5.draw = () => {
-			if (inSession) {
-                const date = new Date();
-                let currTime = date.getTime();
-                let duration = currTime - startTime;
-                let seconds = Math.floor((duration / 1000) % 60);
-                let minutes = Math.floor((duration / (1000 * 60)) % 60);
-                let hours = Math.floor((duration / (1000 * 60 * 60)) % 24);
-                let hoursStr = hours < 10 ? '0' + hours : hours;
-                let minutesStr = minutes < 10 ? '0' + minutes : minutes;
-                let secondsStr = seconds < 10 ? '0' + seconds : seconds;
-                elapsedTime = hoursStr + ':' + minutesStr + ':' + secondsStr;
-		    }
-		};
-	};
+    setInterval(() => {
+        if (!$SessionStore.modalOpen) {
+                modal.set(null);
+            }
+    }, 100);
 </script>
 
 <h1>Homepage</h1>
-{#if inSession}
-	<div>{elapsedTime}</div>
-	<button id='studyhouseEndButton' on:click={endSession}>End Session</button>
+{#if $SessionStore.inSession}
+    <InSession/>
 {:else}
-    <button id='studyhouseStartButton' on:click={startSession} disabled>Turn On The StudyHouse Extension</button>
+    <button id='studyhouseStartButton' on:click={startSessionModal} disabled>Turn On The StudyHouse Extension</button>
+    <button on:click={seeActivitiesModal}>See Previous Activities</button>
 {/if}
 <br />
 <button on:click={logoutFromGoogle}>Logout</button>
-<P5 {sketch} />
+
+<Modal show={$modal}></Modal>
