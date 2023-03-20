@@ -42,6 +42,7 @@
 {:else}
     <button id='studyhouseStartButton' on:click={startSessionModal} disabled>Turn On The StudyHouse Extension</button>
     <button on:click={seeActivitiesModal}>See Previous Activities</button>
+    <div>test from jarrett branch</div>
 {/if}
 <br />
 <button on:click={logoutFromGoogle}>Logout</button>

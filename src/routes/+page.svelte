@@ -9,7 +9,7 @@
 
 {#if $AuthStore.isLoggedIn}
     <Homepage/>
-    <MyDialog/>
+    <!-- <MyDialog/> -->
 {:else}
     <Login/>
 {/if}
