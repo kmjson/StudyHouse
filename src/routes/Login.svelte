@@ -25,5 +25,6 @@
 </style>
 
 <img src="studyhouse.png" alt="studyhouse" class="studyhouse_img">
+<!-- <img src="studyhousebranding.svg" alt="studyhouse"> -->
 <br>
 <button on:click={ loginWithGoogle } class="login_button">Login With Google</button>
