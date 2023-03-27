@@ -2,11 +2,15 @@ import { writable } from 'svelte/store';
 
 const SessionStore = writable<{
     inSession: boolean,
-    modalOpen: boolean,
+    sessionLength: number,
+    modalType: string,
+    counter: number,
     sessionActivity: string
 }>({
     inSession: false,
-    modalOpen: false,
+    sessionLength: 0,
+    modalType: "",
+    counter: 0,
     sessionActivity: ""
 });
 

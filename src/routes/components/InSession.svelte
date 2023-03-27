@@ -17,18 +17,26 @@
 		endSession();
 	});
 
+    window.addEventListener('beforeunload', function (e) {
+        if ($SessionStore.inSession) {
+            e.preventDefault();
+            e.returnValue = '';
+        }
+    });
+
 	const endSession = () => {
         if (!ended) {
             const date = new Date();
             let endTime = date.getTime();
-            // For later use
             let totalDuration = endTime - startTime;
             addActivity($SessionStore.sessionActivity, startTime, totalDuration);
             ended = true;
             SessionStore.set({
                 inSession: false,
-                modalOpen: true,
-                sessionActivity: ""
+                sessionLength: totalDuration,
+                modalType: "finished",
+                counter: $SessionStore.counter+1,
+                sessionActivity: $SessionStore.sessionActivity
             });
         }
 	};
@@ -47,5 +55,32 @@
     }, 100);
 </script>
 
-<div>{elapsedTime}</div>
-<button id='studyhouseEndButton' on:click={endSession}>End Session</button>
+<style>
+    .button {
+        display: block;
+        margin: auto;
+        background-color: #F8DEC7;
+        border: none;
+        font-family: "Porpora-Regular";
+        font-size: 2rem;
+        padding: 0.5rem;
+        border-radius: 0.5rem;
+        color: #DC83A4;
+        cursor: pointer;
+    }
+
+    .buffer {
+        margin-top: 15vh;
+    }
+
+    .stopwatch {
+        text-align: center;
+        margin-top: 10rem;
+        font-size: 8rem;
+        color: #F8DEC7;
+    }
+</style>
+
+<div class="buffer"></div>
+<button id='studyhouseEndButton' on:click={endSession} class="button">End Session</button>
+<h1 class="stopwatch">{elapsedTime}</h1>
