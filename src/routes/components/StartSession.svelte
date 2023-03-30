@@ -7,7 +7,9 @@
 		if (activity !== "") {
 			SessionStore.set({
 				inSession: true,
-				modalOpen: false,
+				sessionLength: 0,
+				modalType: "",
+				counter: $SessionStore.counter+1,
 				sessionActivity: activity
 			});
 		}
