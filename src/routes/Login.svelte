@@ -7,7 +7,8 @@
         display: block;
         margin: auto;
         margin-top: 25vh;
-        max-width: 60vw;
+        width: 34rem;
+        max-width: 80vw;
     }
 
     .login_button {
