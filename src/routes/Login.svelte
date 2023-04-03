@@ -7,19 +7,20 @@
         display: block;
         margin: auto;
         margin-top: 25vh;
+        width: 34rem;
         max-width: 80vw;
     }
 
     .login_button {
         display: block;
         margin: auto;
-        background-color: #F8DEC7;
+        background-color: #DC83A4;
         border: none;
         font-family: "Porpora-Regular";
         font-size: 2rem;
-        padding: 0.5rem;
-        border-radius: 0.5rem;
-        color: #DC83A4;
+        padding: 1rem;
+        border-radius: 1.5rem;
+        color: #F8DEC7;
         cursor: pointer;
     }
 </style>

@@ -17,9 +17,11 @@
 
 </script>
 
-<h1>What do you want to accomplish this session?</h1>
-<p>This session, I want to...</p>
-<form>
-	<input bind:value={activity} type="text" required>
-	<input type="submit" value="Start Session!" on:click={startSession}>
-</form>
+<div style="background-color: #DC83A4;">
+	<h1>What do you want to accomplish this session?</h1>
+	<p>This session, I want to...</p>
+	<form>
+		<input bind:value={activity} type="text" required>
+		<input type="submit" value="Start Session!" on:click={startSession}>
+	</form>
+</div>
