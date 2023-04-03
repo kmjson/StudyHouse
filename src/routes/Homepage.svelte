@@ -195,15 +195,15 @@
             {/if}
         </div>
         <div class="right-side">
-            <div class="coin-bar">
-                <img src="coin-icon.png" alt="coin-icon" class="coin-icon"> 
-                <div class="coin-value">{ $UserInfoStore.coins }</div>
-            </div>
+
             
             <button class="button" on:click={customizationModal}>Customize Study House</button>
         </div>
     </div>
-    
+            <div class="coin-bar">
+                <img src="coin-icon.png" alt="coin-icon" class="coin-icon"> 
+                <div class="coin-value">{ $UserInfoStore.coins }</div>
+            </div>
     
 {/if}
 <ModalManager/>
