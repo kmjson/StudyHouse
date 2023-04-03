@@ -40,7 +40,7 @@ async function loginWithGoogle() {
                     await setDoc(doc(newUserRef, uid_str), {
                         "uid": uid_str,
                         "coins": 0,
-                        "rooms": ["gray"],
+                        "rooms": ["Gray"],
                         "decorations": []
                     });
                 }
