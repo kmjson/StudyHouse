@@ -59,7 +59,7 @@
     .button {
         display: block;
         margin: auto;
-        background-color: #F8DEC7;
+        background-color: #F8DEC7; 
         border: none;
         font-family: "Porpora-Regular";
         font-size: 2rem;
@@ -77,7 +77,7 @@
         text-align: center;
         margin-top: 10rem;
         font-size: 8rem;
-        color: #F8DEC7;
+        color: #DC83A4;
     }
 </style>
 
