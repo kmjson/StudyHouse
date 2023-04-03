@@ -1,8 +1,9 @@
 import { initializeApp } from "firebase/app";
 import { getAuth, signInWithPopup, GoogleAuthProvider, signOut } from "firebase/auth";
-import { getFirestore, collection,  query, where, doc, setDoc, getDocs } from "firebase/firestore";
+import { getFirestore, collection,  query, where, doc, setDoc, getDoc, getDocs, onSnapshot, updateDoc } from "firebase/firestore";
 import { get } from 'svelte/store';
 import AuthStore from "./AuthStore";
+import UserInfoStore from "./UserInfoStore";
 
 var firebaseConfig = {
     apiKey: 'AIzaSyByCa-MhbzY1ghAYjgcLLOHXyu2O1WP6x8',
@@ -18,10 +19,59 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
 
+/**
+ * @type {import("@firebase/firestore").Unsubscribe}
+ */
+let unsubscribe;
+
 async function loginWithGoogle() {
     try {
         const result = await signInWithPopup(auth, new GoogleAuthProvider());
         const user = result.user;
+        try {
+            const uid = user.uid;
+            let uid_str = String(uid);
+            console.log(uid_str);
+            const docRef = doc(db, "userInfo", uid_str);
+            const docSnap = await getDoc(docRef);
+            if (!docSnap.exists()) {
+                try {
+                    const newUserRef = collection(db, "userInfo");
+                    await setDoc(doc(newUserRef, uid_str), {
+                        "uid": uid_str,
+                        "coins": 0,
+                        "rooms": ["gray"],
+                        "decorations": []
+                    });
+                }
+                catch (e) {
+                    console.log(e)
+                }
+            } 
+            unsubscribe = onSnapshot(doc(db, "userInfo", uid_str), (doc) => {
+                try {
+                    // @ts-ignore
+                    if (doc.data() != undefined && doc.data().uid == uid_str) {
+                        UserInfoStore.set({
+                            // @ts-ignore
+                            uid: doc.data().uid,
+                            // @ts-ignore
+                            coins: doc.data().coins,
+                            // @ts-ignore
+                            rooms: doc.data().rooms,
+                            // @ts-ignore
+                            decorations: doc.data().decorations
+                        });
+                    }
+                }
+                catch (e) {
+                    console.log(e);
+                }
+            });
+        }
+        catch (e) {
+            console.log(e);
+        }
         AuthStore.set({
             isLoggedIn: user !== undefined && user !== null,
             user: user,
@@ -35,6 +85,7 @@ async function loginWithGoogle() {
 
 async function logoutFromGoogle() {
     try {
+        unsubscribe();
         await signOut(auth);
         AuthStore.set({
             isLoggedIn: false,
@@ -61,6 +112,12 @@ async function addActivity(activity, date, length) {
             "activity": activity,
             "date": date,
             "length": length
+        });
+        await updateDoc(doc(db, "userInfo", get(UserInfoStore).uid), {
+            "uid": get(UserInfoStore).uid,
+            "coins": get(UserInfoStore).coins + Math.round(length/1000),
+            "rooms":  get(UserInfoStore).rooms,
+            "decorations": get(UserInfoStore).decorations
         });
     }
     catch (e) {
@@ -91,9 +148,30 @@ async function getActivities() {
     }
 }
 
+/**
+ * @param {string} room
+ * @param {number} price
+ */
+async function buyRoom(room, price) {
+    try {
+        let rooms = get(UserInfoStore).rooms;
+        rooms.push(room);
+        await updateDoc(doc(db, "userInfo", get(UserInfoStore).uid), {
+            "uid": get(UserInfoStore).uid,
+            "coins": get(UserInfoStore).coins - price,
+            "rooms": rooms,
+            "decorations": get(UserInfoStore).decorations
+        });
+    }
+    catch (e) {
+        console.log(e);
+    }
+}
+
 export {
     loginWithGoogle,
     logoutFromGoogle,
     addActivity,
-    getActivities
+    getActivities,
+    buyRoom
 }

@@ -33,9 +33,27 @@
     };
 </script>
 
+<style>
+    .activities {
+        overflow-y: scroll;
+        max-height: 70vh;
+    }
+
+    ::-webkit-scrollbar {
+        width: 0.4rem;
+    }
+
+    ::-webkit-scrollbar-thumb {
+        background: white;
+        border-radius: 0.2rem;
+    }
+</style>
+
 <h1>Previous Activities</h1>
+<div class="activities">
 {#if loaded}
     {#each activities as activity}
-        <h3>On {getDate(activity)}, you {activity.activity}.</h3>
+        <h3>On {getDate(activity)}, you achieved: {activity.activity}.</h3>
     {/each}
 {/if}
+</div>

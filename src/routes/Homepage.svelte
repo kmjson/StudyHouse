@@ -1,8 +1,20 @@
 <script>
+
     import SessionStore from '../SessionStore';
     import InSession from './components/InSession.svelte';
     import ModalManager from './ModalManager.svelte';
     import { logoutFromGoogle } from '../Firebase';
+    import UserInfoStore from '../UserInfoStore';
+    import { onMount } from 'svelte';
+
+    /**
+	 * @type {string}
+	 */
+    let currentRoom;
+
+    onMount(() => {
+        currentRoom = "Gray";
+    });
 
     const startSessionModal = () => {
         SessionStore.set({
@@ -24,6 +36,16 @@
         });
     };
 
+    const customizationModal = () => {
+        SessionStore.set({
+            inSession: false,
+            sessionLength: 0,
+            modalType: "customization",
+            counter: $SessionStore.counter+1,
+            sessionActivity: ""
+        });
+    };
+
     const logout = () => {
         SessionStore.set({
             inSession: false,
@@ -34,6 +56,28 @@
         });
         logoutFromGoogle();
     };
+
+    const leftButton = () => {
+        if ($UserInfoStore.rooms.length > 1) {
+            if (currentRoom == "Gray") {
+                currentRoom = "Pink";
+            }
+            else if (currentRoom == "Pink") {
+                currentRoom = "Gray";
+            }
+        }
+    }
+
+    const rightButton = () => {
+        if ($UserInfoStore.rooms.length > 1) {
+            if (currentRoom == "Gray") {
+                currentRoom = "Pink";
+            }
+            else if (currentRoom == "Pink") {
+                currentRoom = "Gray";
+            }
+        }
+    }
 </script>
 
 <style>
@@ -60,7 +104,7 @@
         font-size: 2rem;
         padding: 1rem;
         border-radius: 1.5rem;
-        color: #F8DEC7;
+        color: white;
         cursor: pointer;
     }
     .big{
@@ -81,6 +125,7 @@
     }
     .left-arrow, .right-arrow, .coin-icon{
         width: 4rem;
+        cursor: pointer;
     }
     .top-bar {
         display: flex;
@@ -114,6 +159,7 @@
         padding-left: 4rem;
         padding-right: 4rem;
         font-size: 2.5rem;
+        text-align: center;
     }
     .coin-value{
         color: #DC83A4;
@@ -136,20 +182,25 @@
         </div>
         <div class="middle-side">
             <div class="top-bar">
-                <img class ="left-arrow" src="left-arrow.png" alt="left-arrow" >
-                <div class="top-bar-title"> Bedroom</div>
-                <img class ="right-arrow" src="right-arrow.png" alt="right-arrow" >
+                <!-- svelte-ignore a11y-click-events-have-key-events -->
+                <img class ="left-arrow" src="left-arrow.png" alt="left-arrow" on:click={leftButton}>
+                <div class="top-bar-title">{currentRoom} Bedroom</div>
+                <!-- svelte-ignore a11y-click-events-have-key-events -->
+                <img class ="right-arrow" src="right-arrow.png" alt="right-arrow" on:click={rightButton}>
             </div>
-            
-            <img src="isometric.png" alt="isometric" class="isometric"> 
+            {#if currentRoom == "Pink"}
+                <img src="Pink.png" alt="isometric" class="isometric"> 
+            {:else if currentRoom == "Gray"}
+                <img src="Gray.png" alt="isometric" class="isometric"> 
+            {/if}
         </div>
         <div class="right-side">
             <div class="coin-bar">
                 <img src="coin-icon.png" alt="coin-icon" class="coin-icon"> 
-                <div class="coin-value">000</div>
+                <div class="coin-value">{ $UserInfoStore.coins }</div>
             </div>
             
-            <button  class="button">Customize Study House</button>
+            <button class="button" on:click={customizationModal}>Customize Study House</button>
         </div>
     </div>
     

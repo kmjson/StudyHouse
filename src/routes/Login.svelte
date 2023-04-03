@@ -20,7 +20,7 @@
         font-size: 2rem;
         padding: 1rem;
         border-radius: 1.5rem;
-        color: #F8DEC7;
+        color: white;
         cursor: pointer;
     }
 </style>
