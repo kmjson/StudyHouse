@@ -46,6 +46,16 @@
         });
     };
 
+    const storeModal = () => {
+        SessionStore.set({
+            inSession: false,
+            sessionLength: 0,
+            modalType: "store",
+            counter: $SessionStore.counter+1,
+            sessionActivity: ""
+        });
+    };
+
     const logout = () => {
         SessionStore.set({
             inSession: false,
@@ -193,17 +203,21 @@
             {:else if currentRoom == "Gray"}
                 <img src="Gray.png" alt="isometric" class="isometric"> 
             {/if}
-        </div>
-        <div class="right-side">
-
-            
-            <button class="button" on:click={customizationModal}>Customize Study House</button>
-        </div>
-    </div>
             <div class="coin-bar">
                 <img src="coin-icon.png" alt="coin-icon" class="coin-icon"> 
                 <div class="coin-value">{ $UserInfoStore.coins }</div>
             </div>
+        </div>
+
+        <div class="right-side">
+
+            
+            <button class="button" on:click={customizationModal}>Inventory</button>
+            <br>
+            <button class="button" on:click={storeModal}>Store</button>
+        </div>
+    </div>
+            
     
 {/if}
 <ModalManager/>
