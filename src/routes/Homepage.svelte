@@ -3,9 +3,11 @@
     import SessionStore from '../SessionStore';
     import InSession from './components/InSession.svelte';
     import ModalManager from './ModalManager.svelte';
-    import { logoutFromGoogle } from '../Firebase';
+    import { logoutFromGoogle, getGoogleUserDisplayName } from '../Firebase';
     import UserInfoStore from '../UserInfoStore';
     import { onMount } from 'svelte';
+
+
 
     /**
 	 * @type {string}
@@ -45,6 +47,7 @@
             sessionActivity: ""
         });
     };
+    const displayName = getGoogleUserDisplayName();
 
     const logout = () => {
         SessionStore.set({
@@ -78,6 +81,17 @@
             }
         }
     }
+
+    const profileModal = () => {
+        SessionStore.set({
+            inSession: $SessionStore.inSession,
+            sessionLength: $SessionStore.sessionLength,
+            modalType: "customization",
+            counter: $SessionStore.counter+1,
+            sessionActivity: $SessionStore.sessionActivity
+        });
+    };
+
 </script>
 
 <style>
@@ -169,13 +183,15 @@
 </style>
 
 <!-- svelte-ignore a11y-click-events-have-key-events -->
-<img src="logout.png" alt="logout" class="logout_button" on:click={logout}>
+<img src="logout.png" alt="logout" class="logout_button" on:click={logout}> 
+<h1>Welcome, {displayName || "Guest"}!</h1>
 {#if $SessionStore.inSession}
     <InSession/>
 {:else}
     <div class="buffer"></div>
     <div class="big">
         <div class="left-side">
+            
             <button id='studyhouseStartButton' on:click={startSessionModal} class="button" disabled>Turn On The StudyHouse Extension</button>
             <br>
             <button id='seePreviousActivities' on:click={seeActivitiesModal} class="button">See Previous Activities</button>
