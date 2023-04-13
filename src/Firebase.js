@@ -167,11 +167,31 @@ async function buyRoom(room, price) {
         console.log(e);
     }
 }
+/**
+ * @param {string} decoration
+ * @param {number} price
+ */
+async function buyDecoration(decoration, price) {
+    try {
+        let decorations = get(UserInfoStore).rooms;
+        decorations.push(decoration);
+        await updateDoc(doc(db, "userInfo", get(UserInfoStore).uid), {
+            "uid": get(UserInfoStore).uid,
+            "coins": get(UserInfoStore).coins - price,
+            "rooms": get(UserInfoStore).rooms,
+            "decorations": decorations
+        });
+    }
+    catch (e) {
+        console.log(e);
+    }
+}
 
 export {
     loginWithGoogle,
     logoutFromGoogle,
     addActivity,
     getActivities,
-    buyRoom
+    buyRoom,
+    buyDecoration
 }
