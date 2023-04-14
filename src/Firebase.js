@@ -39,6 +39,7 @@ async function loginWithGoogle() {
                     const newUserRef = collection(db, "userInfo");
                     await setDoc(doc(newUserRef, uid_str), {
                         "uid": uid_str,
+                        "name": user.displayName,
                         "coins": 0,
                         "rooms": ["Gray"],
                         "decorations": []
@@ -55,6 +56,8 @@ async function loginWithGoogle() {
                         UserInfoStore.set({
                             // @ts-ignore
                             uid: doc.data().uid,
+                            // @ts-ignore
+                            name: doc.data().name, // Add the user's name to the UserInfoStore
                             // @ts-ignore
                             coins: doc.data().coins,
                             // @ts-ignore
@@ -168,10 +171,23 @@ async function buyRoom(room, price) {
     }
 }
 
-export {
-    loginWithGoogle,
-    logoutFromGoogle,
-    addActivity,
-    getActivities,
-    buyRoom
-}
+
+export const getGoogleUserDisplayName = () => {
+    const user = auth.currentUser;
+    if (user && user.providerData && user.providerData.length > 0) {
+      const providerData = user.providerData[0];
+      if (providerData.providerId === "google.com") {
+        return providerData.displayName;
+      }
+    }
+    return null;
+  };
+
+	export {
+		loginWithGoogle,
+		logoutFromGoogle,
+		addActivity,
+		getActivities,
+		buyRoom, 
+        auth
+	};

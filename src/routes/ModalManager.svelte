@@ -6,6 +6,8 @@
     import CustomizationModal from './components/CustomizationModal.svelte';
     import { writable } from 'svelte/store';
     import Modal from 'svelte-simple-modal';
+    import ProfileModal from './components/ProfileModal.svelte';
+
 
     const modal = writable(null);
     let currModal = "";
@@ -32,6 +34,11 @@
                 // @ts-ignore
                 modal.set(CustomizationModal);
             }
+            if ($SessionStore.modalType == "profile") {
+                // @ts-ignore
+                modal.set(ProfileModal);
+            }
+
             currModal = $SessionStore.modalType;
             counter = $SessionStore.counter;
         }

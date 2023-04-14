@@ -86,7 +86,7 @@
         SessionStore.set({
             inSession: $SessionStore.inSession,
             sessionLength: $SessionStore.sessionLength,
-            modalType: "customization",
+            modalType: "profile",
             counter: $SessionStore.counter+1,
             sessionActivity: $SessionStore.sessionActivity
         });
@@ -184,7 +184,6 @@
 
 <!-- svelte-ignore a11y-click-events-have-key-events -->
 <img src="logout.png" alt="logout" class="logout_button" on:click={logout}> 
-<h1>Welcome, {displayName || "Guest"}!</h1>
 {#if $SessionStore.inSession}
     <InSession/>
 {:else}
@@ -215,7 +214,8 @@
                 <img src="coin-icon.png" alt="coin-icon" class="coin-icon"> 
                 <div class="coin-value">{ $UserInfoStore.coins }</div>
             </div>
-            
+            <button id='profileButton' on:click={profileModal} class="button">Profile</button>
+            <br>
             <button class="button" on:click={customizationModal}>Customize Study House</button>
         </div>
     </div>
