@@ -5,44 +5,58 @@
 
     const bed_room_inventory = [
         {
-            item_name: "Bedroom-Bed-1",
+            item_name: "Bed-1",
+            item_type: "Bed",
             price: 100
         },
         {
-            item_name: "Bedroom-BBed-2",
+            item_name: "Bed-2",
+            item_type: "Bed",
             price: 500
         },
         {
-            item_name: "Bedroom-BBed-3",
-            price: 999999
+            item_name: "Desk-1",
+            item_type: "Desk",
+            price: 100
+        },
+        {
+            item_name: "Desk-2",
+            item_type: "Desk",
+            price: 300
         }
-    ]
-    const living_room_inventory = [
+        ,
         {
-            item_name: "Living-Bed-1",
-            price: 100
-        },
+            item_name: "wallpaper-blue",
+            item_type: "Wallpaper",
+            price: 200
+        }
+        ,
         {
-            item_name: "Living-BBed-2",
+            item_name: "wallpaper-pink",
+            item_type: "Wallpaper",
             price: 500
-        },
-        {
-            item_name: "Living-BBed-3",
-            price: 999999
         }
     ]
     const library_inventory = [
         {
-            item_name: "library-Bed-1",
+            item_name: "Bookshelf-1",
+            item_type: "Bookshelf",
             price: 100
         },
         {
-            item_name: "library-BBed-2",
-            price: 500
+            item_name: "Bookshelf-2",
+            item_type: "Bookshelf",
+            price: 200
         },
         {
-            item_name: "library-BBed-3",
-            price: 999999
+            item_name: "Chair-1",
+            item_type: "Chair",
+            price: 100
+        },
+        {
+            item_name: "Chair-2",
+            item_type: "Chair",
+            price: 200
         }
     ]
 
@@ -89,7 +103,27 @@
         display: flex;
     }
     .room-options{
-        width: 33%;
+        width: 50%;
+    }
+
+    .underlined {
+        padding-bottom: 0.25rem;
+        border-bottom: solid 1px white;
+        margin-bottom: 0.75rem;
+        font-size: 1.25rem;
+    }
+    .store {
+        overflow-y: scroll;
+        max-height: 60vh;
+    }
+
+    ::-webkit-scrollbar {
+        width: 0.4rem;
+    }
+
+    ::-webkit-scrollbar-thumb {
+        background: white;
+        border-radius: 0.2rem;
     }
 </style>
 
@@ -97,35 +131,47 @@
     <h1>Store</h1>
     <div class="room-nav">
         <div class="room-options" id="bed-room">
-            <button on:click={() => {currentRoom = "Bed_Room"}}> Bed Room</button>
+            <button on:click={() => {currentRoom = "Bed_Room"}} class="button"> Bed Room</button>
         </div>
-        <div class="room-options" id="living-room">
-            <button on:click={() => {currentRoom = "Living_Room"}}> Living Room</button>
-        </div>
-        
         <div class="room-options" id="library">
-            <button on:click={() => {currentRoom = "Library"}}> Library </button>
+            <button on:click={() => {currentRoom = "Library"}} class="button"> Library </button>
         </div>
     </div>
+    <div class="store">
     {#if currentRoom=="Bed_Room"}
+        <div class="underlined">Desk</div>
         {#each bed_room_inventory as decoration}
-            {#if !$UserInfoStore.decorations.includes(decoration.item_name)}
+            {#if !$UserInfoStore.decorations.includes(decoration.item_name) && decoration.item_type == "Desk"}
                 <button on:click={() => purchase(decoration.item_name, decoration.price)} class="button {getClass($UserInfoStore.coins, decoration.price)}">{decoration.item_name} - {decoration.price}</button>
             {/if}
         {/each}
-    {:else if currentRoom=="Living_Room"}
-        {#each living_room_inventory as decoration}
-            {#if !$UserInfoStore.decorations.includes(decoration.item_name)}
+        <div class="underlined">Bed</div>
+        {#each bed_room_inventory as decoration}
+            {#if !$UserInfoStore.decorations.includes(decoration.item_name) && decoration.item_type == "Bed"}
+                <button on:click={() => purchase(decoration.item_name, decoration.price)} class="button {getClass($UserInfoStore.coins, decoration.price)}">{decoration.item_name} - {decoration.price}</button>
+            {/if}
+        {/each}
+        <div class="underlined">Wallpaper</div>
+        {#each bed_room_inventory as decoration}
+            {#if !$UserInfoStore.decorations.includes(decoration.item_name) && decoration.item_type == "Wallpaper"}
                 <button on:click={() => purchase(decoration.item_name, decoration.price)} class="button {getClass($UserInfoStore.coins, decoration.price)}">{decoration.item_name} - {decoration.price}</button>
             {/if}
         {/each}
     {:else}
+        <div class="underlined">Bookshelf</div>
         {#each library_inventory as decoration}
-            {#if !$UserInfoStore.decorations.includes(decoration.item_name)}
+            {#if !$UserInfoStore.decorations.includes(decoration.item_name) && decoration.item_type == "Bookshelf"}
+                <button on:click={() => purchase(decoration.item_name, decoration.price)} class="button {getClass($UserInfoStore.coins, decoration.price)}">{decoration.item_name} - {decoration.price}</button>
+            {/if}
+        {/each}
+        <div class="underlined">Chair</div>
+        {#each library_inventory as decoration}
+            {#if !$UserInfoStore.decorations.includes(decoration.item_name) && decoration.item_type == "Chair"}
                 <button on:click={() => purchase(decoration.item_name, decoration.price)} class="button {getClass($UserInfoStore.coins, decoration.price)}">{decoration.item_name} - {decoration.price}</button>
             {/if}
         {/each}
     {/if}
+</div>
     
     
 
