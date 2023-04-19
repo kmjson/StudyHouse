@@ -40,8 +40,9 @@ async function loginWithGoogle() {
                     await setDoc(doc(newUserRef, uid_str), {
                         "uid": uid_str,
                         "coins": 0,
-                        "rooms": ["Gray"],
-                        "decorations": []
+                        "rooms": ["Bedroom"],
+                        "decorations": [],
+                        "current": []
                     });
                 }
                 catch (e) {
@@ -60,7 +61,9 @@ async function loginWithGoogle() {
                             // @ts-ignore
                             rooms: doc.data().rooms,
                             // @ts-ignore
-                            decorations: doc.data().decorations
+                            decorations: doc.data().decorations,
+                            // @ts-ignore
+                            current: doc.data().current
                         });
                     }
                 }
@@ -117,7 +120,8 @@ async function addActivity(activity, date, length) {
             "uid": get(UserInfoStore).uid,
             "coins": get(UserInfoStore).coins + Math.round(length/1000),
             "rooms":  get(UserInfoStore).rooms,
-            "decorations": get(UserInfoStore).decorations
+            "decorations": get(UserInfoStore).decorations,
+            "current": get(UserInfoStore).current
         });
     }
     catch (e) {
@@ -160,7 +164,48 @@ async function buyRoom(room, price) {
             "uid": get(UserInfoStore).uid,
             "coins": get(UserInfoStore).coins - price,
             "rooms": rooms,
-            "decorations": get(UserInfoStore).decorations
+            "decorations": get(UserInfoStore).decorations,
+            "current": get(UserInfoStore).current
+        });
+    }
+    catch (e) {
+        console.log(e);
+    }
+}
+
+/**
+ * @param {string} decoration
+ * @param {number} price
+ */
+async function buyDecoration(decoration, price) {
+    try {
+        let decorations = get(UserInfoStore).decorations;
+        decorations.push(decoration);
+        await updateDoc(doc(db, "userInfo", get(UserInfoStore).uid), {
+            "uid": get(UserInfoStore).uid,
+            "coins": get(UserInfoStore).coins - price,
+            "rooms": get(UserInfoStore).rooms,
+            "decorations": decorations,
+            "current": get(UserInfoStore).current
+        });
+    }
+    catch (e) {
+        console.log(e);
+    }
+}
+
+
+/**
+ * @param {any} list
+ */
+async function setCurrent(list) {
+    try {
+        await updateDoc(doc(db, "userInfo", get(UserInfoStore).uid), {
+            "uid": get(UserInfoStore).uid,
+            "coins": get(UserInfoStore).coins,
+            "rooms": get(UserInfoStore).rooms,
+            "decorations": get(UserInfoStore).decorations,
+            "current": list
         });
     }
     catch (e) {
@@ -173,5 +218,7 @@ export {
     logoutFromGoogle,
     addActivity,
     getActivities,
-    buyRoom
+    buyRoom,
+    buyDecoration,
+    setCurrent
 }

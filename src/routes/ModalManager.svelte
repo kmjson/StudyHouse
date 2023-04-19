@@ -3,7 +3,8 @@
     import StartSessionModal from './components/StartSessionModal.svelte';
     import FinishedSessionModal from './components/FinishedSessionModal.svelte';
     import ActivitiesModal from './components/ActivitiesModal.svelte';
-    import CustomizationModal from './components/CustomizationModal.svelte';
+    import InventoryModal from './components/InventoryModal.svelte';
+    import StoreModal from './components/StoreModal.svelte';
     import { writable } from 'svelte/store';
     import Modal from 'svelte-simple-modal';
 
@@ -28,9 +29,13 @@
                 // @ts-ignore
                 modal.set(ActivitiesModal);
             }
-            if ($SessionStore.modalType == "customization") {
+            if ($SessionStore.modalType == "inventory") {
                 // @ts-ignore
-                modal.set(CustomizationModal);
+                modal.set(InventoryModal);
+            }
+            if ($SessionStore.modalType == "store") {
+                // @ts-ignore
+                modal.set(StoreModal);
             }
             currModal = $SessionStore.modalType;
             counter = $SessionStore.counter;
