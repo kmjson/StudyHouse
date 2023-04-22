@@ -4,6 +4,7 @@
     import FinishedSessionModal from './components/FinishedSessionModal.svelte';
     import ActivitiesModal from './components/ActivitiesModal.svelte';
     import CustomizationModal from './components/CustomizationModal.svelte';
+    import AboutModal from './components/AboutModal.svelte';
     import { writable } from 'svelte/store';
     import Modal from 'svelte-simple-modal';
 
@@ -31,6 +32,10 @@
             if ($SessionStore.modalType == "customization") {
                 // @ts-ignore
                 modal.set(CustomizationModal);
+            }
+            if ($SessionStore.modalType == "about") {
+                // @ts-ignore
+                modal.set(AboutModal);
             }
             currModal = $SessionStore.modalType;
             counter = $SessionStore.counter;

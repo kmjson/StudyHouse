@@ -78,6 +78,15 @@
             }
         }
     }
+    const aboutModal = () => {
+        SessionStore.set({
+            inSession: false,
+            sessionLength: 0,
+            modalType: "about",
+            counter: $SessionStore.counter+1,
+            sessionActivity: ""
+        });
+    };
 </script>
 
 <style>
@@ -166,10 +175,17 @@
         padding-left: 3rem;
         font-size: 2rem;
     }
+    #aboutButton {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+}
+
 </style>
 
 <!-- svelte-ignore a11y-click-events-have-key-events -->
 <img src="logout.png" alt="logout" class="logout_button" on:click={logout}>
+<button id='aboutButton' on:click={aboutModal} class="button">About Us</button>
 {#if $SessionStore.inSession}
     <InSession/>
 {:else}
