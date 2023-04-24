@@ -5,11 +5,14 @@ const UserInfoStore = writable<{
     coins: number,
     rooms: [string],
     decorations: [string]
+    lastLogin: number
 }>({
     uid: "",
     coins: 0,
     rooms: [""],
-    decorations: [""]
+    decorations: [""],
+    lastLogin: 0
+    // Date.now()
 });
 
 export default {

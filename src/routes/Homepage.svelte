@@ -12,10 +12,25 @@
 	 */
     let currentRoom;
 
+    /**
+	 * @type {boolean}
+	 */
+    let visible = true;
+
     onMount(() => {
-        currentRoom = "Gray";
+        currentRoom = "Gray";    
+        
     });
 
+    const dailyRewardModal = () =>{
+        SessionStore.set({
+            inSession: false,
+            sessionLength: 0,
+            modalType: "dailyReward",
+            counter: $SessionStore.counter+1,
+            sessionActivity: ""
+        });
+    }
     const startSessionModal = () => {
         SessionStore.set({
             inSession: false,
@@ -88,6 +103,10 @@
             }
         }
     }
+
+    const clicked = () => {
+        visible = false
+    }
 </script>
 
 <style>
@@ -142,6 +161,11 @@
         align-items: center;
         justify-content: center;
     }
+    .top-top-bar {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
     .coin-bar{
         display: flex;
         align-items: center;
@@ -176,10 +200,34 @@
         padding-left: 3rem;
         font-size: 2rem;
     }
+
+    .showButton{
+        background-color: #F8DEC7;
+        border: none;
+    }
+    .innerShowButton{
+        display: block;
+        margin: auto;
+        background-color: #DC83A4;
+        border: none;
+        font-family: "Porpora-Regular";
+        font-size: 1rem;
+        padding: 1rem;
+        border-radius: 1.5rem;
+        color: white;
+        cursor: pointer;
+
+    }
 </style>
 
 <!-- svelte-ignore a11y-click-events-have-key-events -->
-<img src="logout.png" alt="logout" class="logout_button" on:click={logout}>
+<div class="top-top-bar">
+    {#if visible}
+        <button on:click={clicked} class="showButton"> <button on:click={dailyRewardModal} class="innerShowButton">Daily Reward</button></button>
+    {/if}
+    <img src="logout.png" alt="logout" class="logout_button" on:click={logout}>
+</div>
+
 {#if $SessionStore.inSession}
     <InSession/>
 {:else}

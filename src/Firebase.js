@@ -41,7 +41,8 @@ async function loginWithGoogle() {
                         "uid": uid_str,
                         "coins": 0,
                         "rooms": ["Gray"],
-                        "decorations": []
+                        "decorations": [],
+                        "lastLogin": Date.now()
                     });
                 }
                 catch (e) {
@@ -60,7 +61,9 @@ async function loginWithGoogle() {
                             // @ts-ignore
                             rooms: doc.data().rooms,
                             // @ts-ignore
-                            decorations: doc.data().decorations
+                            decorations: doc.data().decorations,
+                            // @ts-ignore
+                            lastLogin: doc.data().lastLogin
                         });
                     }
                 }
@@ -117,7 +120,8 @@ async function addActivity(activity, date, length) {
             "uid": get(UserInfoStore).uid,
             "coins": get(UserInfoStore).coins + Math.round(length/1000),
             "rooms":  get(UserInfoStore).rooms,
-            "decorations": get(UserInfoStore).decorations
+            "decorations": get(UserInfoStore).decorations,
+            "lastLogin": get(UserInfoStore).lastLogin
         });
     }
     catch (e) {
@@ -160,7 +164,9 @@ async function buyRoom(room, price) {
             "uid": get(UserInfoStore).uid,
             "coins": get(UserInfoStore).coins - price,
             "rooms": rooms,
-            "decorations": get(UserInfoStore).decorations
+            "decorations": get(UserInfoStore).decorations,
+            "lastLogin": get(UserInfoStore).lastLogin
+            
         });
     }
     catch (e) {
@@ -179,7 +185,8 @@ async function buyDecoration(decoration, price) {
             "uid": get(UserInfoStore).uid,
             "coins": get(UserInfoStore).coins - price,
             "rooms": get(UserInfoStore).rooms,
-            "decorations": decorations
+            "decorations": decorations,
+            "lastLogin": get(UserInfoStore).lastLogin
         });
     }
     catch (e) {
@@ -187,11 +194,45 @@ async function buyDecoration(decoration, price) {
     }
 }
 
+/**
+ * 
+ * @param {number} newTime 
+ */
+async function addLastLogin(newTime){
+    try{
+        let currentime = Date.now();
+        await updateDoc(doc(db, "userInfo", get(UserInfoStore).uid), {
+            "uid": get(UserInfoStore).uid,
+            "coins": get(UserInfoStore).coins  + 100,
+            "rooms":  get(UserInfoStore).rooms,
+            "decorations": get(UserInfoStore).decorations,
+            "lastLogin": newTime
+        });
+    }
+    catch (e){
+        console.log(e);
+    }
+}
+/*
+
+Adding daily reward function
+
+    ->at the mount portion
+
+Friend list func
+
+Add
+Delete
+Reject
+
+*/
+
 export {
     loginWithGoogle,
     logoutFromGoogle,
     addActivity,
     getActivities,
     buyRoom,
-    buyDecoration
+    buyDecoration,
+    addLastLogin
 }

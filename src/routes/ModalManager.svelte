@@ -7,6 +7,7 @@
     import StoreModal from './components/StoreModal.svelte';
     import { writable } from 'svelte/store';
     import Modal from 'svelte-simple-modal';
+    import DailyReward from './components/DailyReward.svelte';
 
     const modal = writable(null);
     let currModal = "";
@@ -36,6 +37,10 @@
             if ($SessionStore.modalType == "store") {
                 // @ts-ignore
                 modal.set(StoreModal);
+            }
+            if ($SessionStore.modalType == "dailyReward") {
+                // @ts-ignore
+                modal.set(DailyReward);
             }
             currModal = $SessionStore.modalType;
             counter = $SessionStore.counter;
