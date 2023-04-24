@@ -42,7 +42,10 @@ async function loginWithGoogle() {
                         "coins": 0,
                         "rooms": ["Gray"],
                         "decorations": [],
-                        "lastLogin": Date.now()
+                        "lastLogin": Date.now(),
+                        // "friends": [],
+                        // "requests": [],
+                        // "email": ""
                     });
                 }
                 catch (e) {
@@ -63,7 +66,13 @@ async function loginWithGoogle() {
                             // @ts-ignore
                             decorations: doc.data().decorations,
                             // @ts-ignore
-                            lastLogin: doc.data().lastLogin
+                            lastLogin: doc.data().lastLogin,
+                            // // @ts-ignore
+                            // friends: doc.data().friends,
+                            // // @ts-ignore
+                            // requests: doc.data().requests,
+                            // // @ts-ignore
+                            // email: doc.data().email
                         });
                     }
                 }
@@ -121,7 +130,10 @@ async function addActivity(activity, date, length) {
             "coins": get(UserInfoStore).coins + Math.round(length/1000),
             "rooms":  get(UserInfoStore).rooms,
             "decorations": get(UserInfoStore).decorations,
-            "lastLogin": get(UserInfoStore).lastLogin
+            "lastLogin": get(UserInfoStore).lastLogin,
+            // "friends": get(UserInfoStore).friends,
+            // "requests": get(UserInfoStore).requests,
+            // "email": get(UserInfoStore).email
         });
     }
     catch (e) {
@@ -165,7 +177,10 @@ async function buyRoom(room, price) {
             "coins": get(UserInfoStore).coins - price,
             "rooms": rooms,
             "decorations": get(UserInfoStore).decorations,
-            "lastLogin": get(UserInfoStore).lastLogin
+            "lastLogin": get(UserInfoStore).lastLogin,
+            // "friends": get(UserInfoStore).friends,
+            // "requests": get(UserInfoStore).requests,
+            // "email": get(UserInfoStore).email
             
         });
     }
@@ -186,7 +201,10 @@ async function buyDecoration(decoration, price) {
             "coins": get(UserInfoStore).coins - price,
             "rooms": get(UserInfoStore).rooms,
             "decorations": decorations,
-            "lastLogin": get(UserInfoStore).lastLogin
+            "lastLogin": get(UserInfoStore).lastLogin,
+            // "friends": get(UserInfoStore).friends,
+            // "requests": get(UserInfoStore).requests,
+            // "email": get(UserInfoStore).email
         });
     }
     catch (e) {
@@ -200,13 +218,15 @@ async function buyDecoration(decoration, price) {
  */
 async function addLastLogin(newTime){
     try{
-        let currentime = Date.now();
         await updateDoc(doc(db, "userInfo", get(UserInfoStore).uid), {
             "uid": get(UserInfoStore).uid,
-            "coins": get(UserInfoStore).coins  + 100,
+            "coins": get(UserInfoStore).coins,
             "rooms":  get(UserInfoStore).rooms,
             "decorations": get(UserInfoStore).decorations,
-            "lastLogin": newTime
+            "lastLogin": newTime,
+            // "friends": get(UserInfoStore).friends,
+            // "requests": get(UserInfoStore).requests,
+            // "email": get(UserInfoStore).email
         });
     }
     catch (e){
@@ -214,19 +234,117 @@ async function addLastLogin(newTime){
     }
 }
 /*
-
-Adding daily reward function
-
-    ->at the mount portion
-
 Friend list func
 
-Add
+Add (accept)
 Delete
-Reject
+Decline
+Send
 
 */
 
+/**
+ * 
+ * @param {any} aFriend
+ */
+async function addFriend(aFriend){
+    try{
+        // friends.push(aFriend);
+        // requests.remove(aFriend);
+        await updateDoc(doc(db, "userInfo", get(UserInfoStore).uid), {
+            "uid": get(UserInfoStore).uid,
+            "coins": get(UserInfoStore).coins,
+            "rooms":  get(UserInfoStore).rooms,
+            "decorations": get(UserInfoStore).decorations,
+            "lastLogin": get(UserInfoStore).lastLogin,
+            // "friends": get(UserInfoStore).friends,
+            // "requests": get(UserInfoStore).requests,
+            // "email": get(UserInfoStore).email
+        });
+
+
+        // Add friends on the sender side
+    }
+    catch (e){
+        console.log(e);
+    }
+}
+
+/**
+ * 
+ * @param {any} delFriend
+ */
+async function deleteFriend(delFriend){
+    try{
+        // friends.remove(delFriend);
+        await updateDoc(doc(db, "userInfo", get(UserInfoStore).uid), {
+            "uid": get(UserInfoStore).uid,
+            "coins": get(UserInfoStore).coins,
+            "rooms":  get(UserInfoStore).rooms,
+            "decorations": get(UserInfoStore).decorations,
+            "lastLogin": get(UserInfoStore).lastLogin,
+            // "friends": get(UserInfoStore).friends,
+            // "requests": get(UserInfoStore).requests,
+            // "email": get(UserInfoStore).email
+        });
+
+        // Remove friends on the receiver side
+    }
+    catch (e){
+        console.log(e);
+    }
+}
+
+/**
+ * 
+ * @param {any} declFriend
+ */
+async function declineFriend(declFriend){
+    try{
+        // requests.remove(declFriend);
+        await updateDoc(doc(db, "userInfo", get(UserInfoStore).uid), {
+            "uid": get(UserInfoStore).uid,
+            "coins": get(UserInfoStore).coins,
+            "rooms":  get(UserInfoStore).rooms,
+            "decorations": get(UserInfoStore).decorations,
+            "lastLogin": get(UserInfoStore).lastLogin,
+            // "friends": get(UserInfoStore).friends,
+            // "requests": get(UserInfoStore).requests,
+            // "email": get(UserInfoStore).email
+        });
+
+        // Remove friends on the receiver side
+    }
+    catch (e){
+        console.log(e);
+    }
+}
+
+/**
+ * 
+ * @param {any} reqFriend
+ */
+async function sendFriendRequest(reqFriend){
+    try{
+        //On the receiver
+
+        // requests.push(reqFriend);
+        await updateDoc(doc(db, "userInfo", get(UserInfoStore).uid), {
+            "uid": get(UserInfoStore).uid,
+            "coins": get(UserInfoStore).coins,
+            "rooms":  get(UserInfoStore).rooms,
+            "decorations": get(UserInfoStore).decorations,
+            "lastLogin": get(UserInfoStore).lastLogin,
+            // "friends": get(UserInfoStore).friends,
+            // "requests": get(UserInfoStore).requests,
+            // "email": get(UserInfoStore).email
+        });
+
+    }
+    catch (e){
+        console.log(e);
+    }
+}
 export {
     loginWithGoogle,
     logoutFromGoogle,

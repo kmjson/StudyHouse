@@ -19,7 +19,17 @@
 
     onMount(() => {
         currentRoom = "Gray";    
-        
+
+        let newLogin = Date.now();
+        let newLoginDate = new Date(newLogin).getDate();
+            // newLogin = newLogin.getDate();
+            // console.log($UserInfoStore.lastLogin.toString());
+        let lastLoginDate = new Date ($UserInfoStore.lastLogin).getDate();
+
+        console.log("newLogin homepage1", newLogin);
+        console.log("newLogin homepage2", newLoginDate);
+        console.log("lastLogin homepage1", lastLoginDate);
+        console.log("lastLogin homepage2", $UserInfoStore.lastLogin);
     });
 
     const dailyRewardModal = () =>{
@@ -104,7 +114,22 @@
         }
     }
 
+    let newLogin = Date.now();
+    let newLoginDate = new Date(newLogin).getDate();
+
+    setInterval(() => {
+        let lastLogin = $UserInfoStore.lastLogin;
+        if (lastLogin != -1) {
+            let lastLoginDate = new Date ($UserInfoStore.lastLogin).getDate();
+            if (newLoginDate == lastLoginDate) {
+                console.log("ASGYUASGJ");
+                visible = false;
+            }
+        }
+    }, 100)
+
     const clicked = () => {
+
         visible = false
     }
 </script>
