@@ -17,10 +17,6 @@
 
 </script>
 
-<style>
-	
-</style>
-
 <h1>What do you want to accomplish this session?</h1>
 <p>This session, I want to...</p>
 <form>
