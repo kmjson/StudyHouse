@@ -122,14 +122,12 @@
         if (lastLogin != -1) {
             let lastLoginDate = new Date ($UserInfoStore.lastLogin).getDate();
             if (newLoginDate == lastLoginDate) {
-                console.log("ASGYUASGJ");
                 visible = false;
             }
         }
     }, 100)
 
     const clicked = () => {
-
         visible = false
     }
 </script>

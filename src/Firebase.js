@@ -220,7 +220,7 @@ async function addLastLogin(newTime){
     try{
         await updateDoc(doc(db, "userInfo", get(UserInfoStore).uid), {
             "uid": get(UserInfoStore).uid,
-            "coins": get(UserInfoStore).coins,
+            "coins": get(UserInfoStore).coins + 100,
             "rooms":  get(UserInfoStore).rooms,
             "decorations": get(UserInfoStore).decorations,
             "lastLogin": newTime,
