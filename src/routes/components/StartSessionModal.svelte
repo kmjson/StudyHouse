@@ -25,24 +25,26 @@
 		border: none;
 		font-family: "Porpora-Regular";
 		font-size: 0.8rem;
-		padding: 0.75rem;
-		border-radius: 1.5rem;
+		padding: 0.8rem;
+		border-radius: 0 1.5rem 1.5rem 0;
 		color:#DC83A4;
 		cursor: pointer;
 
 	}
 	.input{
 		width: 60%;
-		margin-left: auto;
-		margin-right: 0.75rem;
+		/* margin-left: auto; */
+		/* margin-right: 0.75rem; */
 		border-radius: 1.5rem;
-		font-size: 0.9rem;
-		height: 1.8rem;
+		font-size: 1rem;
+		/* height: 1.8rem; */
+		padding: 0.7rem;
+		padding-left: 1rem;
+		border-radius: 1.5rem 0 0 1.5rem;
+		border: 0.15rem solid #F8DEC7;
 	}
 	.bar {
         display: flex;
-        align-items: center;
-        justify-content: center;
     }
 </style>
 <div style="background-color: #DC83A4;">
