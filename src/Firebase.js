@@ -135,6 +135,8 @@ async function addActivity(activity, date, length) {
         const newActivityRef = doc(collection(db, "activities"));
         await setDoc(newActivityRef, {
             "uid": uid,
+            "name": get(UserInfoStore).name,
+            "email": get(UserInfoStore).email,
             "activity": activity,
             "date": date,
             "length": length
@@ -150,20 +152,26 @@ async function addActivity(activity, date, length) {
 
 async function getActivities() {
     try {
-        const uid = get(AuthStore).user?.uid;
-        const q = query(collection(db, "activities"), where("uid", "==", uid));
+        let uid_list = [get(UserInfoStore).uid];
+        for (let i = 0; i < get(UserInfoStore).friends.length; i++) {
+            // @ts-ignore
+            uid_list.push(get(UserInfoStore).friends[i].uid);
+        }
+        const q = query(collection(db, "activities"), where("uid", "in", uid_list));
         const querySnapshot = await getDocs(q);
-        /**
-         * @type {{ activity: any; date: any; length: any; }[]}
-         */
+        // @ts-ignore
         let ret = [];
         querySnapshot.forEach((doc) => {
             ret.push({
+                "uid": doc.data().uid,
+                "name": doc.data().name,
+                "email": doc.data().email,
                 "activity": doc.data().activity,
                 "date": doc.data().date,
                 "length": doc.data().length
             });
         });
+        // @ts-ignore
         return ret;
     }
     catch (e) {
@@ -260,7 +268,6 @@ async function sendFriendRequest(reciever) {
 
                 for (let i = 0; i < friends.length; i++) {
                     if (friends[i].uid == get(UserInfoStore).uid) {
-                        console.log("wjhkahdkj");
                         contains = true;
                     }
                 }
