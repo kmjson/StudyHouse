@@ -1,8 +1,6 @@
 <script>
-
     import SessionStore from '../SessionStore';
     import InSession from './components/InSession.svelte';
-    import ModalManager from './ModalManager.svelte';
     import { logoutFromGoogle } from '../Firebase';
     import UserInfoStore from '../UserInfoStore';
     import { onMount } from 'svelte';
@@ -56,15 +54,34 @@
         });
     };
 
-    const logout = () => {
+    const about = () => {
         SessionStore.set({
             inSession: false,
             sessionLength: 0,
-            modalType: "",
+            modalType: "about",
             counter: $SessionStore.counter+1,
             sessionActivity: ""
         });
-        logoutFromGoogle();
+    };
+
+    const friends = () => {
+        SessionStore.set({
+            inSession: false,
+            sessionLength: 0,
+            modalType: "friends",
+            counter: $SessionStore.counter+1,
+            sessionActivity: ""
+        });
+    };
+
+    const profile = () => {
+        SessionStore.set({
+            inSession: false,
+            sessionLength: 0,
+            modalType: "profile",
+            counter: $SessionStore.counter+1,
+            sessionActivity: ""
+        });
     };
 
     const leftButton = () => {
@@ -88,13 +105,35 @@
             }
         }
     }
+
+    const login_check = setInterval(() => {
+        if ($UserInfoStore.last_login != -1) {
+            let last = new Date($UserInfoStore.last_login);
+            let now = new Date();
+
+            if (last.getDay() != now.getDay() ||
+                last.getMonth() != now.getMonth() ||
+                last.getFullYear() != now.getFullYear()) 
+            {
+                SessionStore.set({
+                    inSession: false,
+                    sessionLength: 0,
+                    modalType: "daily",
+                    counter: $SessionStore.counter+1,
+                    sessionActivity: ""
+                });
+            }
+            clearInterval(login_check);
+        }
+    }, 100);
+
 </script>
 
 <style>
     .frame {
         width: 30rem;
         margin: auto;
-        margin-top: 3rem;
+        margin-top: 2rem;
         -webkit-animation: mover 2s infinite  alternate;
         animation: mover 2s infinite  alternate;
         position: relative;
@@ -109,6 +148,14 @@
         width: 30rem;
         top: 0;
         left: 0;
+    }
+
+    .bedroom_decoration {
+        position: absolute;
+        z-index: 1;
+        top: 0;
+        left: 0;
+        width: 30rem;
     }
 
     .left {
@@ -128,7 +175,7 @@
     }
 
     .buffer {
-        margin-top: 15vh;
+        margin-top: 11vh;
     }
 
     .button {
@@ -184,11 +231,11 @@
         100% { transform: translateY(-20px); }
     }
 
-    .logout_button {
+    .icon_button {
         cursor: pointer;
         width: 4rem;
         display: -webkit-box;
-        margin-left: auto;
+        /* margin-left: auto; */
     }
     .top-bar-title{
         color: #DC83A4;
@@ -202,19 +249,29 @@
         padding-left: 3rem;
         font-size: 2rem;
     }
+
+    .top {
+        display: flex;
+    }
 </style>
 
-<!-- svelte-ignore a11y-click-events-have-key-events -->
-<img src="logout.png" alt="logout" class="logout_button" on:click={logout}>
 {#if $SessionStore.inSession}
     <InSession/>
 {:else}
+    <!-- svelte-ignore a11y-click-events-have-key-events -->
+    <div class="top">
+        <img src="about.png" alt="about" class="icon_button" on:click={about}>
+        <div style="display: flex; margin-left: auto">
+            <img src="friends.png" alt="friends" class="icon_button" style="margin-right: 0.5rem" on:click={friends}>
+            <img src="profile.png" alt="profile" class="icon_button" on:click={profile}>
+        </div>
+    </div>
     <div class="buffer"></div>
     <div class="big">
         <div class="left-side">
             <button id='studyhouseStartButton' on:click={startSessionModal} class="button" disabled>Turn On The StudyHouse Extension</button>
             <br>
-            <button id='seePreviousActivities' on:click={seeActivitiesModal} class="button">See Previous Activities</button>
+            <button id='seePreviousActivities' on:click={seeActivitiesModal} class="button">Activity Feed</button>
         </div>
         <div class="middle-side">
             <div class="top-bar">
@@ -226,18 +283,19 @@
             </div>
             <div class="frame">
                 {#if currentRoom == "Bedroom"}
-                    <img src="Gray.png" alt="isometric" class="isometric"> 
+                    <img src="bedroom/room.png" alt="bedroom" class="isometric">
 
-                    {#if $UserInfoStore.current.includes("Desk-1")}
-                        <img src="green.png" alt="" class="left">
-                    {:else if $UserInfoStore.current.includes("Desk-2")}
-                        <img src="purple.png" alt="" class="left">
+                    {#if $UserInfoStore.current.includes("Bedroom-Bed")}
+                        <img src="bedroom/bed.png" alt="bed" class="bedroom_decoration">
                     {/if}
-
-                    {#if $UserInfoStore.current.includes("Bed-1")}
-                        <img src="green.png" alt="" class="right">
-                    {:else if $UserInfoStore.current.includes("Bed-2")}
-                        <img src="purple.png" alt="" class="right">
+                    {#if $UserInfoStore.current.includes("Bedroom-Windows")}
+                        <img src="bedroom/windows.png" alt="bed" class="bedroom_decoration">
+                    {/if}
+                    {#if $UserInfoStore.current.includes("Bedroom-Posters")}
+                        <img src="bedroom/posters.png" alt="bed" class="bedroom_decoration">
+                    {/if}
+                    {#if $UserInfoStore.current.includes("Bedroom-Lights")}
+                        <img src="bedroom/lights.png" alt="bed" class="bedroom_decoration">
                     {/if}
 
                 {:else if currentRoom == "Library"}
@@ -271,4 +329,3 @@
     </div>
     
 {/if}
-<ModalManager/>

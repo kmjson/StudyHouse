@@ -4,24 +4,20 @@
 
     const bedroom_inventory = [
         {
-            item_name: "Bed-1",
-            item_type: "Bed",
+            item_name: "Lights",
             price: 200
         },
         {
-            item_name: "Bed-2",
-            item_type: "Bed",
+            item_name: "Posters",
+            price: 300
+        },
+        {
+            item_name: "Bed",
             price: 500
         },
         {
-            item_name: "Desk-1",
-            item_type: "Desk",
-            price: 200
-        },
-        {
-            item_name: "Desk-2",
-            item_type: "Desk",
-            price: 500
+            item_name: "Windows",
+            price: 1000
         }
     ]
     const library_inventory = [
@@ -67,6 +63,22 @@
             newList.push(decoration);
         }
         setCurrent(newList);
+    }
+
+    // @ts-ignore
+    const equipBedroom = (decoration) => {
+        let list = $UserInfoStore.current;
+        let new_list;
+        if (list.includes(decoration)) {
+            new_list = list.filter((value) => {
+                return !(value == decoration);
+            });
+        }
+        else {
+            list.push(decoration);
+            new_list = list;
+        }
+        setCurrent(new_list);
     }
 
     // @ts-ignore
@@ -142,7 +154,18 @@
     </div>
     <div class="store">
         {#if currentRoom=="Bedroom"}
-            <div class="underlined">Desk</div>
+            <div class="underlined">Decorations</div>
+            {#if count($UserInfoStore.decorations, "Bedroom") == 0}
+                <div>Currently, You Have No Decorations!</div>
+                <br>
+            {:else}
+                {#each bedroom_inventory as decoration}
+                    {#if $UserInfoStore.decorations.includes("Bedroom-" + decoration.item_name)}
+                        <button on:click={() => equipBedroom("Bedroom-" + decoration.item_name)} class="button {getClass("Bedroom-" + decoration.item_name, $UserInfoStore.current)}">{decoration.item_name}</button>
+                    {/if}
+                {/each}
+            {/if}
+            <!-- <div class="underlined">Desk</div>
             {#if count($UserInfoStore.decorations, "Desk") == 0}
                 <div>Currently, You Have No Desks!</div>
                 <br>
@@ -163,7 +186,7 @@
                         <button on:click={() => equipDecoration(decoration.item_name, decoration.item_type)} class="button {getClass(decoration.item_name, $UserInfoStore.current)}">{decoration.item_name}</button>
                     {/if}
                 {/each}
-            {/if}
+            {/if} -->
         {:else}
             {#if $UserInfoStore.rooms.includes("Library")}
                 <div class="underlined">Bookshelf</div>
@@ -190,6 +213,7 @@
                 {/if}
             {:else}
                 <div>Currently, You Don't Have A Library!</div>
+                <br>
             {/if}
         {/if}
     </div>

@@ -5,6 +5,10 @@
     import ActivitiesModal from './components/ActivitiesModal.svelte';
     import InventoryModal from './components/InventoryModal.svelte';
     import StoreModal from './components/StoreModal.svelte';
+    import DailyRewardModal from './components/DailyRewardModal.svelte';
+    import AboutModal from './components/AboutModal.svelte';
+    import FriendsModal from './components/FriendsModal.svelte';
+    import ProfileModal from './components/ProfileModal.svelte';
     import { writable } from 'svelte/store';
     import Modal from 'svelte-simple-modal';
 
@@ -36,6 +40,22 @@
             if ($SessionStore.modalType == "store") {
                 // @ts-ignore
                 modal.set(StoreModal);
+            }
+            if ($SessionStore.modalType == "daily") {
+                // @ts-ignore
+                modal.set(DailyRewardModal);
+            }
+            if ($SessionStore.modalType == "about") {
+                // @ts-ignore
+                modal.set(AboutModal);
+            }
+            if ($SessionStore.modalType == "friends") {
+                // @ts-ignore
+                modal.set(FriendsModal);
+            }
+            if ($SessionStore.modalType == "profile") {
+                // @ts-ignore
+                modal.set(ProfileModal);
             }
             currModal = $SessionStore.modalType;
             counter = $SessionStore.counter;

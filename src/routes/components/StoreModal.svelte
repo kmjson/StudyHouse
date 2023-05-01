@@ -4,24 +4,20 @@
 
     const bedroom_inventory = [
         {
-            item_name: "Bed-1",
-            item_type: "Bed",
+            item_name: "Lights",
             price: 200
         },
         {
-            item_name: "Bed-2",
-            item_type: "Bed",
+            item_name: "Posters",
+            price: 300
+        },
+        {
+            item_name: "Bed",
             price: 500
         },
         {
-            item_name: "Desk-1",
-            item_type: "Desk",
-            price: 200
-        },
-        {
-            item_name: "Desk-2",
-            item_type: "Desk",
-            price: 500
+            item_name: "Windows",
+            price: 1000
         }
     ]
     const library_inventory = [
@@ -139,7 +135,18 @@
     </div>
     <div class="store">
         {#if currentRoom=="Bedroom"}
-            <div class="underlined">Desk</div>
+            <div class="underlined">Decorations</div>
+            {#if count($UserInfoStore.decorations, "Bedroom") >= 4}
+                <div>All Bedroom Decorations Have Been Purchased!</div>
+                <br>
+            {:else}
+                {#each bedroom_inventory as decoration}
+                    {#if !$UserInfoStore.decorations.includes("Bedroom-" + decoration.item_name)}
+                        <button on:click={() => purchaseDecoration("Bedroom-" + decoration.item_name, decoration.price)} class="button {getClass($UserInfoStore.coins, decoration.price)}">{decoration.item_name} - {decoration.price}</button>
+                    {/if}
+                {/each}
+            {/if}
+            <!-- <div class="underlined">Desk</div>
             {#if count($UserInfoStore.decorations, "Desk") >= 2}
                 <div>All Desks Have Been Purchased!</div>
                 <br>
@@ -160,7 +167,7 @@
                         <button on:click={() => purchaseDecoration(decoration.item_name, decoration.price)} class="button {getClass($UserInfoStore.coins, decoration.price)}">{decoration.item_name} - {decoration.price}</button>
                     {/if}
                 {/each}
-            {/if}
+            {/if} -->
         {:else}
             {#if $UserInfoStore.rooms.includes("Library")}
                 <div class="underlined">Bookshelf</div>

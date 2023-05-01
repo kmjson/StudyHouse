@@ -70,12 +70,12 @@
     }
 
     .buffer {
-        margin-top: 15vh;
+        margin-top: 26vh;
     }
 
     .stopwatch {
         text-align: center;
-        margin-top: 10rem;
+        margin-top: 6rem;
         font-size: 8rem;
         color: #DC83A4;
     }

@@ -31,7 +31,10 @@ async function loginWithGoogle() {
         try {
             const uid = user.uid;
             let uid_str = String(uid);
-            console.log(uid_str);
+            const name = user.displayName;
+            let name_str = String(name);
+            const email = user.email;
+            let email_str = String(email);
             const docRef = doc(db, "userInfo", uid_str);
             const docSnap = await getDoc(docRef);
             if (!docSnap.exists()) {
@@ -39,10 +42,20 @@ async function loginWithGoogle() {
                     const newUserRef = collection(db, "userInfo");
                     await setDoc(doc(newUserRef, uid_str), {
                         "uid": uid_str,
-                        "coins": 0,
+                        "name": name_str,
+                        "email": email_str,
+                        "coins": 2000,
+                        "last_login": 0,
                         "rooms": ["Bedroom"],
                         "decorations": [],
-                        "current": []
+                        "current": [],
+                        "friends": [],
+                        "requests": [],
+                    });
+                    const newEmailRef = collection(db, "emailInfo");
+                    await setDoc(doc(newEmailRef, email_str), {
+                        "uid": uid_str,
+                        "name": name_str,
                     });
                 }
                 catch (e) {
@@ -57,13 +70,23 @@ async function loginWithGoogle() {
                             // @ts-ignore
                             uid: doc.data().uid,
                             // @ts-ignore
+                            name: doc.data().name,
+                            // @ts-ignore
+                            email: doc.data().email,
+                            // @ts-ignore
                             coins: doc.data().coins,
+                            // @ts-ignore
+                            last_login: doc.data().last_login,
                             // @ts-ignore
                             rooms: doc.data().rooms,
                             // @ts-ignore
                             decorations: doc.data().decorations,
                             // @ts-ignore
-                            current: doc.data().current
+                            current: doc.data().current,
+                            // @ts-ignore
+                            friends: doc.data().friends,
+                            // @ts-ignore
+                            requests: doc.data().requests
                         });
                     }
                 }
@@ -117,11 +140,7 @@ async function addActivity(activity, date, length) {
             "length": length
         });
         await updateDoc(doc(db, "userInfo", get(UserInfoStore).uid), {
-            "uid": get(UserInfoStore).uid,
             "coins": get(UserInfoStore).coins + Math.round(length/1000),
-            "rooms":  get(UserInfoStore).rooms,
-            "decorations": get(UserInfoStore).decorations,
-            "current": get(UserInfoStore).current
         });
     }
     catch (e) {
@@ -161,11 +180,8 @@ async function buyRoom(room, price) {
         let rooms = get(UserInfoStore).rooms;
         rooms.push(room);
         await updateDoc(doc(db, "userInfo", get(UserInfoStore).uid), {
-            "uid": get(UserInfoStore).uid,
             "coins": get(UserInfoStore).coins - price,
             "rooms": rooms,
-            "decorations": get(UserInfoStore).decorations,
-            "current": get(UserInfoStore).current
         });
     }
     catch (e) {
@@ -182,11 +198,8 @@ async function buyDecoration(decoration, price) {
         let decorations = get(UserInfoStore).decorations;
         decorations.push(decoration);
         await updateDoc(doc(db, "userInfo", get(UserInfoStore).uid), {
-            "uid": get(UserInfoStore).uid,
             "coins": get(UserInfoStore).coins - price,
-            "rooms": get(UserInfoStore).rooms,
             "decorations": decorations,
-            "current": get(UserInfoStore).current
         });
     }
     catch (e) {
@@ -201,12 +214,152 @@ async function buyDecoration(decoration, price) {
 async function setCurrent(list) {
     try {
         await updateDoc(doc(db, "userInfo", get(UserInfoStore).uid), {
-            "uid": get(UserInfoStore).uid,
-            "coins": get(UserInfoStore).coins,
-            "rooms": get(UserInfoStore).rooms,
-            "decorations": get(UserInfoStore).decorations,
             "current": list
         });
+    }
+    catch (e) {
+        console.log(e);
+    }
+}
+
+async function getDaily() {
+    try {
+        const date = new Date();
+        await updateDoc(doc(db, "userInfo", get(UserInfoStore).uid), {
+            "last_login": date.getTime(),
+            "coins": get(UserInfoStore).coins + 100,
+        });
+    }
+    catch (e) {
+        console.log(e);
+    }
+}
+
+/**
+ * @param {string} reciever
+ */
+async function sendFriendRequest(reciever) {
+    try {
+        const emailRef = doc(db, "emailInfo", reciever);
+        const emailSnap = await getDoc(emailRef);
+        if (emailSnap.exists()) {
+            let emailData = emailSnap.data();
+            const userRef = doc(db, "userInfo", emailData.uid);
+            const userSnap = await getDoc(userRef);
+            if (userSnap.exists()) {
+                let userData = userSnap.data();
+                let friends = userData.friends;
+                let requests = userData.requests;
+
+                let contains = false;
+                for (let i = 0; i < requests.length; i++) {
+                    if (requests[i].uid == get(UserInfoStore).uid) {
+                        contains = true;
+                    }
+                }
+
+                for (let i = 0; i < friends.length; i++) {
+                    if (friends[i].uid == get(UserInfoStore).uid) {
+                        console.log("wjhkahdkj");
+                        contains = true;
+                    }
+                }
+
+                if (!contains && userData.uid != get(UserInfoStore).uid) {
+                    requests.push(
+                        {
+                            "name": get(UserInfoStore).name,
+                            "email": get(UserInfoStore).email,
+                            "uid": get(UserInfoStore).uid,
+                        }
+                    )
+                    await updateDoc(doc(db, "userInfo", userData.uid), {
+                        "requests": requests
+                    })
+                }
+            }
+        }
+    }
+    catch (e) {
+        console.log(e);
+    }
+}
+
+/**
+ * @param {string} name
+ * @param {string} email
+ * @param {string} uid
+ */
+async function acceptFriendRequest(name, email, uid) {
+    try {
+        const accepterRef = doc(db, "userInfo", get(UserInfoStore).uid);
+        const accepterSnap = await getDoc(accepterRef);
+        if (accepterSnap.exists()) {
+            let friends = get(UserInfoStore).friends;
+            friends.push(
+                {
+                    "name": name,
+                    "email" : email,
+                    "uid": uid
+                }
+            );
+            let old_requests = get(UserInfoStore).requests;
+            let requests = old_requests.filter((value) => {
+                // @ts-ignore
+                return !(value.uid == uid);
+            })
+            await updateDoc(doc(db, "userInfo", get(UserInfoStore).uid), {
+                "friends": friends,
+                "requests": requests
+            });
+        }
+        const senderRef = doc(db, "userInfo", uid);
+        const senderSnap = await getDoc(senderRef);
+        if (senderSnap.exists()) {
+            let friends = senderSnap.data().friends;
+            friends.push(
+                {
+                    "name": get(UserInfoStore).name,
+                    "email": get(UserInfoStore).email,
+                    "uid": get(UserInfoStore).uid
+                }
+            );
+            let old_requests = senderSnap.data().requests;
+            // @ts-ignore
+            let requests = old_requests.filter((value) => {
+                // @ts-ignore
+                return !(value.uid == get(UserInfoStore).uid);
+            })
+            await updateDoc(doc(db, "userInfo", uid), {
+                "friends": friends,
+                "requests": requests
+            });
+        }
+    }
+    catch (e) {
+        console.log(e);
+    }
+}
+
+/**
+ * @param {string} name
+ * @param {string} email
+ * @param {string} uid
+ */
+async function declineFriendRequest(name, email, uid) {
+    try {
+        const accepterRef = doc(db, "userInfo", get(UserInfoStore).uid);
+        const accepterSnap = await getDoc(accepterRef);
+        if (accepterSnap.exists()) {
+            let old_requests = get(UserInfoStore).requests;
+            let requests = old_requests.filter((value) => {
+                // @ts-ignore
+                return !(value.uid == uid);
+            })
+            await updateDoc(doc(db, "userInfo", get(UserInfoStore).uid), {
+                "requests": requests
+            });
+        }
     }
     catch (e) {
         console.log(e);
@@ -220,5 +373,9 @@ export {
     getActivities,
     buyRoom,
     buyDecoration,
-    setCurrent
+    setCurrent,
+    getDaily,
+    sendFriendRequest,
+    acceptFriendRequest,
+    declineFriendRequest
 }

@@ -49,7 +49,7 @@
     }
 </style>
 
-<h1>Previous Activities</h1>
+<h1>Activities</h1>
 <div class="activities">
 {#if loaded}
     {#each activities as activity}
