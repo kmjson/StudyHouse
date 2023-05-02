@@ -1,7 +1,3 @@
-# create-svelte
-
-Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/master/packages/create-svelte).
-
 ## Creating a project
 
 If you're seeing this, you've probably already done this step. Congrats!
@@ -59,7 +55,7 @@ https://studyhouse-74491.web.app/
 <br />
 <div align="center">
   <a href="https://github.com/othneildrew/Best-README-Template">
-    <img src="static/studyhouse.png" alt="Logo" width="80" height="80">
+    <img src="static/studyhouse.png" alt="Logo" width="160" height="140">
   </a>
 
   <h3 align="center">Study House</h3>
@@ -67,7 +63,7 @@ https://studyhouse-74491.web.app/
   <p align="center">
     Don't let distractions steal the show, stay focused and let your study house grow!
     <br />
-    <a href="https://github.com/othneildrew/Best-README-Template"><strong>Explore the docs »</strong></a>
+    <a href="https://github.com/kmjson/StudyHouse/"><strong>Explore the docs »</strong></a>
     <br />
   </p>
 </div>
@@ -101,88 +97,75 @@ https://studyhouse-74491.web.app/
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-[![Product Name Screen Shot][product-screenshot]](https://example.com)
+[![Product Name Screen Shot][product-screenshot]]
 
-There are many great README templates available on GitHub; however, I didn't find one that really suited my needs so I created this enhanced one. I want to create a README template so amazing that it'll be the last one you ever need -- I think this is it.
+StudyHouse is a webapp and extension combo aimed to break the cycle of procrastination and build healthy work habits. Users who use StudyHouse earns coins in which they can purchase furnitures and decorations to customize their own house. StudyHouse offers this experience for all students who wish to stay on top of their work and never miss another deadline!
 
-Here's why:
-* Your time should be focused on creating something amazing. A project that solves a problem and helps others
-* You shouldn't be doing the same tasks over and over like creating a README from scratch
-* You should implement DRY principles to the rest of your life :smile:
-
-Of course, no one template will serve all projects since your needs may be different. So I'll be adding more in the near future. You may also suggest changes by forking this repo and creating a pull request or opening an issue. Thanks to all the people have contributed to expanding this template!
-
-Use the `BLANK_README.md` to get started.
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
+Features:
+* Blocks distracting website during study session
+* Earn coins to purchase furnitures
+* Customizable furniture and decoration for each room
+* Specify blocked website list
+* Friend feature
 
 
 ### Built With
 
-This section should list any major frameworks/libraries used to bootstrap your project. Leave any add-ons/plugins for the acknowledgements section. Here are a few examples.
+StudyHouse is built using the following frameworks:
 
 * [![Svelte][Svelte.dev]][Svelte-url]
 * [![Firebase][Firebase.com]][Firebase-url]
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
 
 
 <!-- GETTING STARTED -->
 ## Getting Started
 
-This is an example of how you may give instructions on setting up your project locally.
-To get a local copy up and running follow these simple example steps.
+Ready to start using StudyHouse? Follow these steps to join our community!
 
 ### Prerequisites
 
-This is an example of how to list things you need to use the software and how to install them.
-* npm
-  ```sh
-  npm install npm@latest -g
-  ```
+Make sure you have google chrome installed!
 
 ### Installation
 
-_Below is an example of how you can instruct your audience on installing and setting up your app. This template doesn't rely on any external dependencies or services._
+Installation for the extension
 
-1. Get a free API Key at [https://example.com](https://example.com)
-2. Clone the repo
+1. Clone the repo
    ```sh
-   git clone https://github.com/your_username_/Project-Name.git
+   git clone https://github.com/kmjson/StudyHouse-Extension.git
    ```
-3. Install NPM packages
-   ```sh
-   npm install
-   ```
-4. Enter your API in `config.js`
-   ```js
-   const API_KEY = 'ENTER YOUR API';
-   ```
+2. In Google Chrome, navigate to Windows -> Extension 
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+3. Click 'Load unpacked'
 
+4. Navigate to the cloned repo above and click select
 
+5. Enable and pin the extension
+
+[![Product Name Screen Shot][product-screenshot]]
 
 <!-- USAGE EXAMPLES -->
 ## Usage
 
-Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
-
-_For more examples, please refer to the [Documentation](https://example.com)_
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+Once you have the extension downloaded, navigate to our website at https://studyhouse-74491.web.app/ and login with google!
 
 
 <!-- CONTACT -->
 ## Contact
 
-Your Name - [@your_twitter](https://twitter.com/your_username) - email@example.com
+StudyHouse - [@study.house_](https://www.instagram.com/study.house_/)
 
-Project Link: [https://github.com/your_username/repo_name](https://github.com/your_username/repo_name)
+Jason Kim - jasonk@bu.edu
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+Jarrett Fok - jfok23@bu.edu
+
+Sambridhi Subedi - subedis@bu.edu
+
+Colette Li - ruojiali@bu.edu
+
+John Bolognino - jcbolo@bu.edu
+
+Project Link: [https://github.com/kmjson/StudyHouse/](https://github.com/kmjson/StudyHouse/)
 
 
 
@@ -191,7 +174,8 @@ Project Link: [https://github.com/your_username/repo_name](https://github.com/yo
 [Instagram-Icon]: https://img.shields.io/badge/Instagram-%23E4405F.svg?style=for-the-badge&logo=Instagram&logoColor=white
 [Instagram-url]: https://www.instagram.com/study.house_/
 
-[product-screenshot]: static/bedroom/bed.png
+[product-screenshot]: static/bedroom/room.png
+[extension-screenshot]: static/readme-screenshot1.png
 
 [Svelte.dev]: https://img.shields.io/badge/svelte-%23f1413d.svg?style=for-the-badge&logo=svelte&logoColor=white
 [Svelte-url]: https://svelte.dev/
