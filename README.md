@@ -96,8 +96,9 @@ https://studyhouse-74491.web.app/
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-<img src="static/bedroom/bed.png" alt="Logo" align="center" width="400" height="400">
-
+<div align="center" >
+<img src="static/bedroom/bed.png" alt="Logo" width="400" height="400">
+</div>
 
 Studies show 80-95% of college students procrastinate, with 50% college students procrastinate in a consistent and chronic manner. StudyHouse is a webapp and extension combo aimed to break the cycle of procrastination and build healthy work habits. Users who use StudyHouse earns coins each time in which they can use to purchase furnitures and decorations to customize their own house. StudyHouse offers this experience for all students who wish to stay on top of their work and never miss another deadline!
 
@@ -142,7 +143,7 @@ Installation for the extension
 
 5. Enable and pin the extension
 
-<img src="static/readme-screenshot1.png" alt="Logo" width="180" height="160">
+<img src="static/readme-screenshot1.png" alt="Logo" width="250" height="160">
 
 
 <!-- USAGE EXAMPLES -->
