@@ -99,7 +99,7 @@ https://studyhouse-74491.web.app/
 
 ![product Screen Shot][product-screenshot]
 
-![product Screen Shot][product-screenshot = 100]
+[[[extension-screenshot=100px]]
 
 
 Studies show 80-95% of college students procrastinate, with 50% college students procrastinate in a consistent and chronic manner. StudyHouse is a webapp and extension combo aimed to break the cycle of procrastination and build healthy work habits. Users who use StudyHouse earns coins each time in which they can use to purchase furnitures and decorations to customize their own house. StudyHouse offers this experience for all students who wish to stay on top of their work and never miss another deadline!
@@ -146,7 +146,7 @@ Installation for the extension
 5. Enable and pin the extension
 
 ![Extension Screen Shot][extension-screenshot]
-![Extension Screen Shot][extension-screenshot=80]
+[[[extension-screenshot=80px]]
 
 
 <!-- USAGE EXAMPLES -->
