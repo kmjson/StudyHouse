@@ -147,7 +147,7 @@ Installation for the extension
 
 <! -- [Product Name Screen Shot][extension-screenshot] ![][extension-screenshot =80] -->
 
-[![Extension Screen Shot][extension-screenshot][extension-screenshot]]
+![Extension Screen Shot][extension-screenshot]
 
 <img src=extension-screenshot width="80">
 
