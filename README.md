@@ -143,7 +143,7 @@ Installation for the extension
 
 5. Enable and pin the extension
 
-<img src="static/readme-screenshot1.png" alt="Logo" width="250" height="160">
+<img src="static/readme-screenshot1.png" alt="Logo" width="350" height="160">
 
 
 <!-- USAGE EXAMPLES -->
