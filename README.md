@@ -54,7 +54,7 @@ https://studyhouse-74491.web.app/
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-  <a href="https://github.com/othneildrew/Best-README-Template">
+  <a href="">
     <img src="static/studyhouse.png" alt="Logo" width="160" height="140">
   </a>
 
@@ -147,7 +147,9 @@ Installation for the extension
 
 <! -- [Product Name Screen Shot][extension-screenshot] ![][extension-screenshot =80] -->
 
-[Product Name Screen Shot][extension-screenshot]
+[][Product Name Screen Shot][extension-screenshot]
+[][Product Name Screen Shot][extension-screenshot = 80]
+
 <img src=extension-screenshot width="80">
 
 
@@ -181,8 +183,8 @@ Project Link: [https://github.com/kmjson/StudyHouse/](https://github.com/kmjson/
 [Instagram-Icon]: https://img.shields.io/badge/Instagram-%23E4405F.svg?style=for-the-badge&logo=Instagram&logoColor=white
 [Instagram-url]: https://www.instagram.com/study.house_/
 
-[product-screenshot]: static/bedroom/room.png
-[extension-screenshot]: static/readme-screenshot1.png
+[product-screenshot]: /static/bedroom/room.png
+[extension-screenshot]: /static/readme-screenshot1.png
 
 [Svelte.dev]: https://img.shields.io/badge/svelte-%23f1413d.svg?style=for-the-badge&logo=svelte&logoColor=white
 [Svelte-url]: https://svelte.dev/
