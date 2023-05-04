@@ -8,7 +8,7 @@
 <br />
 <div align="center">
   <a href="">
-    <img src="static/studyhouse.png" alt="Logo" width="380" height="260">
+    <img src="static/studyhouse.png" alt="Logo" width="400" height="260">
   </a>
 
   <h3 align="center">Study House</h3>
@@ -18,11 +18,10 @@
     <br />
     <a href="https://github.com/kmjson/StudyHouse/"><strong>Explore the docs »</strong></a>
     <br />
-    [![Instagram][Instagram-Icon]][Instagram-url]
   </p>
 </div>
 
-
+[![Instagram][Instagram-Icon]][Instagram-url]
 
 <!-- TABLE OF CONTENTS -->
 <details>
@@ -42,6 +41,10 @@
       </ul>
     </li>
     <li><a href="#usage">Usage</a></li>
+    <li><a href="#usage">Creating A Project</a></li>
+    <li><a href="#developing">Developing</a></li>
+    <li><a href="#building">Building</a></li>
+    <li><a href="#deploy">Deploy</a></li>
     <li><a href="#contact">Contact</a></li>
   </ol>
 </details>
@@ -98,7 +101,7 @@ Installation for the extension
 
 5. Enable and pin the extension
 
-<img src="static/readme-screenshot1.png" alt="Logo" width="330" height="160">
+<img src="static/readme-screenshot1.png" alt="Logo" width="320" height="160">
 
 
 <!-- USAGE EXAMPLES -->
@@ -106,7 +109,7 @@ Installation for the extension
 
 Once you have the extension downloaded, navigate to our website at https://studyhouse-74491.web.app/ and login with google!
 
-## Creating a project
+## Creating A Project
 
 If you're seeing this, you've probably already done this step. Congrats!
 
