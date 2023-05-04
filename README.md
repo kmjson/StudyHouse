@@ -8,7 +8,7 @@
 <br />
 <div align="center">
   <a href="">
-    <img src="static/studyhouse.png" alt="Logo" width="400" height="260">
+    <img src="static/studyhouse.png" alt="Logo" width="440" height="260">
   </a>
 
   <h3 align="center">Study House</h3>
@@ -41,7 +41,7 @@
       </ul>
     </li>
     <li><a href="#usage">Usage</a></li>
-    <li><a href="#usage">Creating A Project</a></li>
+    <li><a href="#creating-a-project">Creating A Project</a></li>
     <li><a href="#developing">Developing</a></li>
     <li><a href="#building">Building</a></li>
     <li><a href="#deploy">Deploy</a></li>
@@ -101,7 +101,7 @@ Installation for the extension
 
 5. Enable and pin the extension
 
-<img src="static/readme-screenshot1.png" alt="Logo" width="320" height="160">
+<img src="static/readme-screenshot1.png" alt="Logo" width="300" height="160">
 
 
 <!-- USAGE EXAMPLES -->
