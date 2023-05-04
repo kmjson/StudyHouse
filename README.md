@@ -1,49 +1,3 @@
-## Creating a project
-
-If you're seeing this, you've probably already done this step. Congrats!
-
-```bash
-# create a new project in the current directory
-npm create svelte@latest
-
-# create a new project in my-app
-npm create svelte@latest my-app
-```
-
-## Developing
-
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
-
-```bash
-npm run dev
-
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
-```
-
-## Building
-
-To create a production version of your app:
-
-```bash
-npm run build
-```
-
-You can preview the production build with `npm run preview`.
-
-> To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
-
-## Deploy
-
-To deploy your application:
-
-```bash
-firebase deploy
-```
-
-https://studyhouse-74491.web.app/
-
-
 <!--   New Styling starts here  -->
 
 
@@ -54,7 +8,7 @@ https://studyhouse-74491.web.app/
 <br />
 <div align="center">
   <a href="">
-    <img src="static/studyhouse.png" alt="Logo" width="160" height="140">
+    <img src="static/studyhouse.png" alt="Logo" width="340" height="260">
   </a>
 
   <h3 align="center">Study House</h3>
@@ -151,6 +105,50 @@ Installation for the extension
 
 Once you have the extension downloaded, navigate to our website at https://studyhouse-74491.web.app/ and login with google!
 
+## Creating a project
+
+If you're seeing this, you've probably already done this step. Congrats!
+
+```bash
+# create a new project in the current directory
+npm create svelte@latest
+
+# create a new project in my-app
+npm create svelte@latest my-app
+```
+
+## Developing
+
+Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
+
+```bash
+npm run dev
+
+# or start the server and open the app in a new browser tab
+npm run dev -- --open
+```
+
+## Building
+
+To create a production version of your app:
+
+```bash
+npm run build
+```
+
+You can preview the production build with `npm run preview`.
+
+> To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
+
+## Deploy
+
+To deploy your application:
+
+```bash
+firebase deploy
+```
+
+https://studyhouse-74491.web.app/
 
 <!-- CONTACT -->
 ## Contact
