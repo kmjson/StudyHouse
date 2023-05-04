@@ -63,7 +63,7 @@
     <h3 style="text-decoration: underline">Purchasing and placing furniture</h3>
     <h4>1. To purchase furnitures, click the 'Store' button</h4>
     <img src="/about/asset-3_1.png" class="super-super-small-image">
-    <h4>2. Click on the item you wish to purchas! In this case we'll buy Bed</h4>
+    <h4>2. Click on the item you wish to purchase! In this case, we'll buy a Bed</h4>
     <img src="/about/asset-3_2.png" class="small-image">
     <h4>3. Now close the window and click on the 'Inventory' button </h4>
     <img src="/about/asset-3_3.png" class="super-small-image">
