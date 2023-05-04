@@ -1,14 +1,14 @@
 <!--   New Styling starts here  -->
 
 
-[![Instagram][Instagram-Icon]][Instagram-url]
+
 
 
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
   <a href="">
-    <img src="static/studyhouse.png" alt="Logo" width="340" height="260">
+    <img src="static/studyhouse.png" alt="Logo" width="380" height="260">
   </a>
 
   <h3 align="center">Study House</h3>
@@ -18,6 +18,7 @@
     <br />
     <a href="https://github.com/kmjson/StudyHouse/"><strong>Explore the docs »</strong></a>
     <br />
+    [![Instagram][Instagram-Icon]][Instagram-url]
   </p>
 </div>
 
@@ -97,7 +98,7 @@ Installation for the extension
 
 5. Enable and pin the extension
 
-<img src="static/readme-screenshot1.png" alt="Logo" width="350" height="160">
+<img src="static/readme-screenshot1.png" alt="Logo" width="330" height="160">
 
 
 <!-- USAGE EXAMPLES -->
