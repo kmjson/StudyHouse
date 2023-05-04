@@ -13,7 +13,7 @@
 		}
 	};
 
-    console.log($UserInfoStore.requests);
+    // console.log($UserInfoStore.requests);
 </script>
 
 <style>
@@ -64,32 +64,52 @@
         background: white;
         border-radius: 0.2rem;
     }
+
+    .button {
+        display: block;
+        margin: auto;
+        background-color: #F8DEC7;
+        color: #DC83A4;
+        border: none;
+        font-family: "Porpora-Regular";
+        font-size: 1.2rem;
+        /* padding: 1rem; */
+        border-radius: 1.5rem;
+        cursor: pointer;
+        margin-top: 0.1rem;
+        margin-bottom: 0.1rem;
+        margin-right: 0.2rem;
+    }
 </style>
 
 <h1>Friends</h1>
 
 <div class="actions">
     <h3>Friends</h3>
-    {#each $UserInfoStore.friends as friend}
-        <div style="display:flex">
-            <div>{friend.name} - {friend.email}</div>
-            <!-- <div style="display:flex; margin-left: auto">
-                <button on:click={() => acceptFriendRequest(request.name, request.email, request.uid)}>Accept</button>
-                <button on:click={() => declineFriendRequest(request.name, request.email, request.uid)}>Decline</button>
-            </div> -->
-        </div>
-    {/each}
+    {#if $UserInfoStore.friends.length == 0}
+        <div>Invite your friends to StudyHouse using the section below!</div>
+    {:else}
+        {#each $UserInfoStore.friends as friend}
+            <div style="display: flex">
+                <div>{friend.name} - {friend.email}</div>
+            </div>
+        {/each}
+    {/if}
 
     <h3>Friend Requests</h3>
-    {#each $UserInfoStore.requests as request}
-        <div style="display:flex">
-            <div>{request.name} - {request.email}</div>
-            <div style="display:flex; margin-left: auto">
-                <button on:click={() => acceptFriendRequest(request.name, request.email, request.uid)}>Accept</button>
-                <button on:click={() => declineFriendRequest(request.name, request.email, request.uid)}>Decline</button>
+    {#if $UserInfoStore.requests.length == 0}
+        <div>You don't have any friend requests currently!</div>
+    {:else}
+        {#each $UserInfoStore.requests as request}
+            <div style="display:flex">
+                <div>{request.name} - {request.email}</div>
+                <div style="display:flex; margin-left: auto">
+                    <button class="button" on:click={() => acceptFriendRequest(request.name, request.email, request.uid)}>Accept</button>
+                    <button class="button" on:click={() => declineFriendRequest(request.name, request.email, request.uid)}>Decline</button>
+                </div>
             </div>
-        </div>
-    {/each}
+        {/each}
+    {/if}
 
     <h3>Send A Friend Request. Enter Their Email!</h3>
     <form class="bar">

@@ -44,7 +44,7 @@ async function loginWithGoogle() {
                         "uid": uid_str,
                         "name": name_str,
                         "email": email_str,
-                        "coins": 2000,
+                        "coins": 5000,
                         "last_login": 0,
                         "rooms": ["Bedroom"],
                         "decorations": [],

@@ -158,22 +158,6 @@
         width: 30rem;
     }
 
-    .left {
-        position: absolute;
-        z-index: 1;
-        top: 12rem;
-        left: 5rem;
-        width: 5rem;
-    }
-
-    .right {
-        position: absolute;
-        z-index: 1;
-        top: 12rem;
-        right: 5rem;
-        width: 5rem;
-    }
-
     .buffer {
         margin-top: 11vh;
     }
@@ -283,36 +267,37 @@
             </div>
             <div class="frame">
                 {#if currentRoom == "Bedroom"}
-                    <img src="bedroom/room.png" alt="bedroom" class="isometric">
+                    <img src="bedroom/room.PNG" alt="bedroom" class="isometric">
 
+                    {#if $UserInfoStore.current.includes("Bedroom-Rug")}
+                        <img src="bedroom/rug.PNG" alt="bed" class="bedroom_decoration">
+                    {/if}
                     {#if $UserInfoStore.current.includes("Bedroom-Bed")}
-                        <img src="bedroom/bed.png" alt="bed" class="bedroom_decoration">
+                        <img src="bedroom/bed.PNG" alt="bed" class="bedroom_decoration">
                     {/if}
-                    {#if $UserInfoStore.current.includes("Bedroom-Windows")}
-                        <img src="bedroom/windows.png" alt="bed" class="bedroom_decoration">
-                    {/if}
-                    {#if $UserInfoStore.current.includes("Bedroom-Posters")}
-                        <img src="bedroom/posters.png" alt="bed" class="bedroom_decoration">
+                    {#if $UserInfoStore.current.includes("Bedroom-Window")}
+                        <img src="bedroom/window.PNG" alt="bed" class="bedroom_decoration">
                     {/if}
                     {#if $UserInfoStore.current.includes("Bedroom-Lights")}
-                        <img src="bedroom/lights.png" alt="bed" class="bedroom_decoration">
+                        <img src="bedroom/lights.PNG" alt="bed" class="bedroom_decoration">
                     {/if}
 
                 {:else if currentRoom == "Library"}
-                    <img src="Pink.png" alt="isometric" class="isometric"> 
+                    <img src="library/room.PNG" alt="bedroom" class="isometric">
 
-                    {#if $UserInfoStore.current.includes("Bookshelf-1")}
-                        <img src="green.png" alt="" class="left">
-                    {:else if $UserInfoStore.current.includes("Bookshelf-2")}
-                        <img src="purple.png" alt="" class="left">
+                    {#if $UserInfoStore.current.includes("Library-Rug")}
+                        <img src="library/rug.PNG" alt="bed" class="bedroom_decoration">
                     {/if}
-
-                    {#if $UserInfoStore.current.includes("Chair-1")}
-                        <img src="green.png" alt="" class="right">
-                    {:else if $UserInfoStore.current.includes("Chair-2")}
-                        <img src="purple.png" alt="" class="right">
+                    {#if $UserInfoStore.current.includes("Library-Bookshelf")}
+                        <img src="library/bookshelf.PNG" alt="bed" class="bedroom_decoration">
                     {/if}
-
+                    {#if $UserInfoStore.current.includes("Library-Desk + Chair")}
+                        <img src="library/desk.PNG" alt="bed" class="bedroom_decoration">
+                        <img src="library/chair.PNG" alt="bed" class="bedroom_decoration">
+                    {/if}
+                    {#if $UserInfoStore.current.includes("Library-Window")}
+                        <img src="library/window.PNG" alt="bed" class="bedroom_decoration">
+                    {/if}
                 {/if}
             </div>
         </div>
@@ -322,7 +307,6 @@
             <button class="button" on:click={storeModal}>Store</button>
         </div>
     </div>
-    <br>
     <div class="coin-bar">
         <img src="coin-icon.png" alt="coin-icon" class="coin-icon"> 
         <div class="coin-value">{ $UserInfoStore.coins }</div>

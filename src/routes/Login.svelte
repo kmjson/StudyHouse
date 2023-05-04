@@ -43,6 +43,7 @@
     }
 </style>
 
+<!-- svelte-ignore a11y-click-events-have-key-events -->
 <img src="about.png" alt="about" class="icon_button" on:click={about}>
 <img src="studyhouse.png" alt="studyhouse" class="studyhouse_img">
 <!-- <img src="studyhousebranding.svg" alt="studyhouse"> -->

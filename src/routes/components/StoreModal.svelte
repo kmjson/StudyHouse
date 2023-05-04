@@ -8,7 +8,7 @@
             price: 200
         },
         {
-            item_name: "Posters",
+            item_name: "Rug",
             price: 300
         },
         {
@@ -16,30 +16,26 @@
             price: 500
         },
         {
-            item_name: "Windows",
+            item_name: "Window",
             price: 1000
         }
     ]
     const library_inventory = [
         {
-            item_name: "Bookshelf-1",
-            item_type: "Bookshelf",
-            price: 200
+            item_name: "Rug",
+            price: 400
         },
         {
-            item_name: "Bookshelf-2",
-            item_type: "Bookshelf",
-            price: 500
+            item_name: "Bookshelf",
+            price: 800
         },
         {
-            item_name: "Chair-1",
-            item_type: "Chair",
-            price: 200
+            item_name: "Desk + Chair",
+            price: 1000
         },
         {
-            item_name: "Chair-2",
-            item_type: "Chair",
-            price: 500
+            item_name: "Window",
+            price: 1500
         }
     ]
 
@@ -146,55 +142,22 @@
                     {/if}
                 {/each}
             {/if}
-            <!-- <div class="underlined">Desk</div>
-            {#if count($UserInfoStore.decorations, "Desk") >= 2}
-                <div>All Desks Have Been Purchased!</div>
-                <br>
-            {:else}
-                {#each bedroom_inventory as decoration}
-                    {#if !$UserInfoStore.decorations.includes(decoration.item_name) && decoration.item_type == "Desk"}
-                        <button on:click={() => purchaseDecoration(decoration.item_name, decoration.price)} class="button {getClass($UserInfoStore.coins, decoration.price)}">{decoration.item_name} - {decoration.price}</button>
-                    {/if}
-                {/each}
-            {/if}
-            <div class="underlined">Bed</div>
-            {#if count($UserInfoStore.decorations, "Bed") >= 2}
-                <div>All Beds Have Been Purchased!</div>
-                <br>
-            {:else}
-                {#each bedroom_inventory as decoration}
-                    {#if !$UserInfoStore.decorations.includes(decoration.item_name) && decoration.item_type == "Bed"}
-                        <button on:click={() => purchaseDecoration(decoration.item_name, decoration.price)} class="button {getClass($UserInfoStore.coins, decoration.price)}">{decoration.item_name} - {decoration.price}</button>
-                    {/if}
-                {/each}
-            {/if} -->
         {:else}
             {#if $UserInfoStore.rooms.includes("Library")}
-                <div class="underlined">Bookshelf</div>
-                {#if count($UserInfoStore.decorations, "Bookshelf") >= 2}
-                    <div>All Bookshelves Have Been Purchased!</div>
+                <div class="underlined">Decorations</div>
+                {#if count($UserInfoStore.decorations, "Library") >= 4}
+                    <div>All Library Decorations Have Been Purchased!</div>
                     <br>
                 {:else}
                     {#each library_inventory as decoration}
-                        {#if !$UserInfoStore.decorations.includes(decoration.item_name) && decoration.item_type == "Bookshelf"}
-                            <button on:click={() => purchaseDecoration(decoration.item_name, decoration.price)} class="button {getClass($UserInfoStore.coins, decoration.price)}">{decoration.item_name} - {decoration.price}</button>
-                        {/if}
-                    {/each}
-                {/if}
-                <div class="underlined">Chair</div>
-                {#if count($UserInfoStore.decorations, "Chair") >= 2}
-                    <div>All Chairs Have Been Purchased!</div>
-                    <br>
-                {:else}
-                    {#each library_inventory as decoration}
-                        {#if !$UserInfoStore.decorations.includes(decoration.item_name) && decoration.item_type == "Chair"}
-                            <button on:click={() => purchaseDecoration(decoration.item_name, decoration.price)} class="button {getClass($UserInfoStore.coins, decoration.price)}">{decoration.item_name} - {decoration.price}</button>
+                        {#if !$UserInfoStore.decorations.includes("Library-" + decoration.item_name)}
+                            <button on:click={() => purchaseDecoration("Library-" + decoration.item_name, decoration.price)} class="button {getClass($UserInfoStore.coins, decoration.price)}">{decoration.item_name} - {decoration.price}</button>
                         {/if}
                     {/each}
                 {/if}
             {:else}
                 <div class="underlined">Buy The Room!</div>
-                <button on:click={() => purchaseRoom("Library", 1000)} class="button {getClass($UserInfoStore.coins, 1000)}">Library - 1000</button>
+                <button on:click={() => purchaseRoom("Library", 2000)} class="button {getClass($UserInfoStore.coins, 2000)}">Library - 2000</button>
             {/if}
         {/if}
     </div>
