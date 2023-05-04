@@ -8,7 +8,7 @@
 <br />
 <div align="center">
   <a href="">
-    <img src="static/studyhouse.png" alt="Logo" width="520" height="260">
+    <img src="static/studyhouse.png" alt="Logo" width="510" height="260">
   </a>
 
   <h3 align="center">Study House</h3>
